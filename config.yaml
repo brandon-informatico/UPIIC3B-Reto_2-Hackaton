@@ -1,0 +1,5 @@
+# Configuración del proyecto Validat3B
+rutas:
+  datos: data/            # capturas.json + imagenes/ (local, no se sube)
+  resultados: resultados/ # salidas generadas (local, no se sube)
+  cache: cache/           # caché de respuestas de IA (local, no se sube)

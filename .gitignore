@@ -1,0 +1,17 @@
+# Entornos y secretos
+.venv/
+.env
+.env.*
+!.env.example
+
+# Datos del reto: NO subir (llave, imágenes, capturas)
+data/
+resultados/
+cache/
+
+# Python / Node / sistema
+__pycache__/
+*.pyc
+node_modules/
+dist/
+.DS_Store

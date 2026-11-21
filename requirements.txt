@@ -1,0 +1,4 @@
+# Dependencias Python del proyecto (una por línea, con versión cuando se pueda).
+# Cada integrante agrega aquí lo que necesite su módulo.
+pyyaml
+python-dotenv
