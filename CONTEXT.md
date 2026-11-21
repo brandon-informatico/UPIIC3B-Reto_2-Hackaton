@@ -93,7 +93,28 @@ Las constantes compartidas viven **solo** en `src/contratos.py`. Importa de ahí
 cargar_capturas(ruta: Path) -> list[dict]              # capturas limpias, campos oficiales
 cargar_catalogo(ruta: Path) -> dict[int, dict]         # id_product -> fila del catálogo
 rutas_imagenes(captura: dict, base: Path) -> dict[str, Path | None]  # {"facade":..., "product":..., "shelf":...}
+preparar_captura(captura, base_imagenes, ruta_cache, catalogo=None, ...) -> dict   # una captura (ver abajo)
+ingerir(ruta_capturas, base_imagenes, ruta_cache, ruta_catalogo=None) -> list[dict]  # todas
 ```
+- `cargar_capturas` quita `decision_esperada` y `motivo_rechazo` (solo `incluir_etiquetas=True`, para evaluación),
+  agrega `banderas_datos: list[str]` y deja un solo registro por `capture_id`.
+- `python -m src.datos` escribe **`cache/ingesta.json`**: lista con un objeto por captura (aunque no tenga fotos),
+  en el orden de `capturas.json`. Llaves que usan IA y motor (detalle en `src/datos/ingesta.py`):
+
+| Llave | Qué es |
+|---|---|
+| `capture_id`, `captura`, `producto_catalogo` | Captura limpia (sin etiquetas) y su fila del catálogo |
+| `imagenes` / `imagenes_normalizadas` | Rutas originales / copias reducidas con luz emparejada |
+| `imagenes_para_ia`, `tokens_imagen_ia_aprox` | **Lo que se manda al modelo** (mismo formato que `imagenes`) y sus tokens de imagen estimados |
+| `estado_imagenes` | `{"facade","product","shelf"}` → `"ok"` \| `"faltante"` \| `"corrupta"` |
+| `lista_para_ia` | `true` si producto y etiqueta están `ok`; si es `false`, `revision_manual` sin gastar tokens |
+| `senales` | Señales locales: `nitidez_norm`, `nitidez_zona_max` (no dependen de la luz), `codigo_empaque` (`coincide`/`no_coincide`/`no_leido`), `codigo_etiqueta` (`coincide`/`distinto`/`no_leido`), `codigo_barras_detectado`, `tokens_imagen_aprox`. `brillo` y `nitidez` crudos solo para logs (sesgo día/noche). |
+| `ocr.etiqueta` | Pistas del OCR local: `precio_etiqueta`, `precio_coincide_captura`, `tipo_precio` (`regular`/`promocion`), `precio_unitario_visible` (`true`/`null`, nunca `false`), `descripcion_similitud` (0–1), `contenido_coincide` (`si`/`no`/`no_determinable`) |
+| `fuente_etiqueta_ia` | `completa` (por defecto, etiqueta a 768 px) \| `recorte` (solo si `datos.recorte_para_ia: true` y el recorte se verificó con OCR) \| `no_disponible` |
+| `errores` | Lista de problemas de la captura |
+
+- Las pistas locales **confirman**, no condenan: `precio_coincide_captura = false` o `codigo_* = no_leido` no son
+  evidencia de falla (errores de lectura); solo `true` / `coincide` suman confianza.
 
 ### Brandon → `src/ia/`
 ```python

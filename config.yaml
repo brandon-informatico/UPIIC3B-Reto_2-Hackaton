@@ -5,3 +5,19 @@ rutas:
   imagenes: data/                     # las rutas imagenes/... de cada captura son relativas a data/
   salida: resultados/resultados.json
   cache: cache/
+
+# Ingesta local de fotos (src/datos, responsable Copka)
+datos:
+  salida_ingesta: cache/ingesta.json  # una entrada por captura, lista para el análisis con IA
+  hilos: 6                            # medido: 6 hilos ≈ 2x más rápido que 1; más hilos ya no ayuda
+  ocr: true                           # OCR local (RapidOCR) de la etiqueta, ~1 s por captura; --sin-ocr lo apaga
+  # Recorte de etiqueta: medido en desarrollo ahorra solo ~13 % de tokens, quita el producto que acompaña a la
+  # etiqueta y duplica el tiempo. Mejor la foto completa a 768 px (abajo). Encender solo para comparar con la IA.
+  recorte_para_ia: false
+  normalizacion:
+    # px del lado largo de la copia para el modelo. Etiqueta a 768: ~590 tokens (vs 922 a 960) y el OCR lee
+    # el precio igual (96/100) y coincide igual o mejor con el capturado (73 vs 70 de 100).
+    lado_max: {facade: 512, product: 960, shelf: 768}
+    clahe: {facade: 2.0, product: 2.0, shelf: 3.0}     # emparejado de luz (solo en la copia para el modelo)
+    calidad_jpeg: 85
+    leer_codigos: true                                 # requiere zxing-cpp

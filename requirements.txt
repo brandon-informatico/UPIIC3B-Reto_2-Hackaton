@@ -2,3 +2,7 @@
 anthropic
 pyyaml
 python-dotenv
+numpy
+opencv-python-headless
+zxing-cpp
+rapidocr_onnxruntime
