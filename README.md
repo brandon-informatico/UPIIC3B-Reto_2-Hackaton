@@ -39,7 +39,14 @@ Roles, ramas y flujo de trabajo: ver [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ### Sitio web (Cloudflare Pages)
 
-El contenido de `web/` se publica en **https://upiic3b.pages.dev** (proyecto `upiic3b`, configurado en `wrangler.toml`).
+El contenido de `web/` se publica **automáticamente** (GitHub Actions, `.github/workflows/deploy-web.yml`) cada vez que cambia en:
+
+| Rama | Dirección |
+|---|---|
+| `main` | https://upiic3b.pages.dev (producción) |
+| `develop` | https://develop.upiic3b.pages.dev (vista previa del equipo) |
+
+Publicación manual, si hace falta:
 
 ```bash
 npx wrangler pages deploy web --project-name upiic3b --branch main

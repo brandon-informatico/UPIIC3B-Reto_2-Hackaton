@@ -1,0 +1,29 @@
+# Publica web/ en Cloudflare Pages automáticamente.
+#   main    -> https://upiic3b.pages.dev            (producción)
+#   develop -> https://develop.upiic3b.pages.dev    (vista previa del equipo)
+name: Publicar sitio web
+
+on:
+  push:
+    branches: [main, develop]
+    paths: ["web/**"]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-web-${{ github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Publicar en Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy web --project-name upiic3b --branch ${{ github.ref_name }}
