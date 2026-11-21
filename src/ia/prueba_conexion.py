@@ -12,7 +12,8 @@ import time
 from src.ia.cliente import ConfiguracionFaltante, crear_cliente, leer_config
 
 logging.basicConfig(level=logging.INFO, format="%(message)s")
-logging.getLogger("httpx").setLevel(logging.WARNING)
+for nombre_logger in ("httpx", "httpx2"):  # el SDK de anthropic usa httpx2 en versiones recientes
+    logging.getLogger(nombre_logger).setLevel(logging.WARNING)
 log = logging.getLogger(__name__)
 
 
