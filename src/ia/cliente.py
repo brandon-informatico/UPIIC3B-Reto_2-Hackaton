@@ -32,6 +32,6 @@ def leer_config() -> dict[str, str]:
 
 @lru_cache(maxsize=1)
 def crear_cliente() -> AnthropicFoundry:
-    """Un solo cliente por proceso; reintentos acotados (límite de tokens por minuto)."""
+    """Un solo cliente por proceso. Sin reintentos internos: los controla analizar.py y los cuenta en UsoIA."""
     config = leer_config()
-    return AnthropicFoundry(api_key=config["api_key"], base_url=config["endpoint"], max_retries=2, timeout=60)
+    return AnthropicFoundry(api_key=config["api_key"], base_url=config["endpoint"], max_retries=0, timeout=60)
