@@ -3,3 +3,6 @@ anthropic
 pydantic>=2
 pyyaml
 python-dotenv
+numpy
+opencv-python-headless
+zxing-cpp
