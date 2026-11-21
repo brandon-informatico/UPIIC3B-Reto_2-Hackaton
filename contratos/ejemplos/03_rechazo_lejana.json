@@ -1,0 +1,145 @@
+{
+  "situacion": "03_rechazo_lejana",
+  "descripcion": "La foto de producto muestra el anaquel completo; la etiqueta sí se lee. Real: pan Great Value en Bodega Aurrera.",
+  "E1_captura_preparada": {
+    "capture_id": "CAP-111555",
+    "capture_store_name": "Bodega Aurrera",
+    "capture_date": "2026-11-18 21:09:10",
+    "capture_price": 51.0,
+    "capture_brand": "Great Value",
+    "capture_barcode": "401010499899",
+    "id_product": 15323,
+    "product_name": "Pan para hamburguesa",
+    "product_barcode": "401010499899",
+    "product_price": 33.0,
+    "min_product_price": 0.0,
+    "max_product_price": 52.0,
+    "unit_product": "gramo",
+    "unit_quantity_product": 450.0,
+    "product_group": "(39) Bakery",
+    "product_line": "(01) Pan Comercial",
+    "rutas": {
+      "facade": "imagenes/CAP-111555_facade.jpg",
+      "product": "imagenes/CAP-111555_product.jpg",
+      "shelf": "imagenes/CAP-111555_shelf.jpg"
+    },
+    "banderas_datos": []
+  },
+  "E2_features": {
+    "capture_id": "CAP-111555",
+    "estado": "completa",
+    "facade": {
+      "original_wh": "720x960",
+      "final_wh": "384x512",
+      "ruta_normalizada": "cache/normalizadas/facade/CAP-111555_facade.jpg",
+      "tokens_aprox": 262,
+      "brillo": 81.4,
+      "nitidez": 365.4,
+      "nitidez_norm": 0.1238,
+      "nitidez_zona_max": 1.8571,
+      "codigos_leidos": null,
+      "hash": "b8f7d30945e53fb8550c972ab7a42d6a",
+      "repetida": false
+    },
+    "product": {
+      "original_wh": "720x960",
+      "final_wh": "720x960",
+      "ruta_normalizada": "cache/normalizadas/product/CAP-111555_product.jpg",
+      "tokens_aprox": 922,
+      "brillo": 98.8,
+      "nitidez": 1747.6,
+      "nitidez_norm": 0.4566,
+      "nitidez_zona_max": 2.5704,
+      "codigos_leidos": []
+    },
+    "shelf": {
+      "original_wh": "720x960",
+      "final_wh": "720x960",
+      "ruta_normalizada": "cache/normalizadas/shelf/CAP-111555_shelf.jpg",
+      "tokens_aprox": 922,
+      "brillo": 102.2,
+      "nitidez": 700.9,
+      "nitidez_norm": 0.1351,
+      "nitidez_zona_max": 2.1109,
+      "codigos_leidos": []
+    },
+    "parecido_producto_etiqueta": 0.3,
+    "codigo_empaque": "no_leido",
+    "codigo_etiqueta": "distinto",
+    "errores": []
+  },
+  "E4_hallazgos_ia": {
+    "producto_visible": "si",
+    "producto_coincide": "no_determinable",
+    "marca_detectada": null,
+    "contenido_detectado": null,
+    "contenido_coincide": "si",
+    "es_contratipo_permitido": "sin_informacion",
+    "producto_aislado": "no",
+    "foto_borrosa": "no",
+    "foto_de_pantalla": "no",
+    "fachada_coincide": "si",
+    "etiqueta_visible": "si",
+    "etiqueta_legible": "si",
+    "descripcion_completa": "si",
+    "descripcion_coincide": "si",
+    "precios_en_etiqueta": [
+      {
+        "valor": 51.0,
+        "tipo": "regular"
+      }
+    ],
+    "precio_unitario_presente": "si",
+    "duda_principal": null
+  },
+  "E4_uso_ia": {
+    "input_tokens": 2100,
+    "output_tokens": 180,
+    "cache_read_input_tokens": 900,
+    "latencia_ms": 2400,
+    "intentos": 1,
+    "version_prompt": "v1",
+    "modelo": "claude-haiku-5-5",
+    "stop_reason": "end_turn"
+  },
+  "E5_decision_interna": {
+    "capture_id": "CAP-111555",
+    "decision": "rechazada",
+    "p_valida": 0.08,
+    "fallas": [
+      {
+        "reason_code": "CAPTURA_LEJANA",
+        "frente": "B_calidad",
+        "fuente": "ia",
+        "detalle": "producto_aislado=no; varios productos en la foto"
+      }
+    ],
+    "reason_code": "CAPTURA_LEJANA",
+    "motivo_revision": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "falla",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 51.0,
+    "tipo_precio": "regular",
+    "codigo_barras_detectado": null,
+    "ruta_decision": "ia"
+  },
+  "E6_registro_salida": {
+    "capture_id": "CAP-111555",
+    "decision": "rechazada",
+    "confidence_score": 0.92,
+    "reason_code": "CAPTURA_LEJANA",
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "falla",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 51.0,
+    "codigo_barras_detectado": null,
+    "explicacion": "La foto del producto está tomada de lejos: muestra el anaquel completo y no el artículo."
+  }
+}

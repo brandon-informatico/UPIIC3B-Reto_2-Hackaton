@@ -32,6 +32,7 @@ src/pipeline.py Pat     — integra el flujo
 evaluacion/    Ale      — métricas y calidad
 dashboard/     Armando  — visualización
 docs/          contratos, ficha y pitch
+contratos/     entradas/salidas de cada etapa (pydantic) + 17 ejemplos
 ejemplos/      datos ficticios
 web/           sitio público (Cloudflare Pages)
 ```

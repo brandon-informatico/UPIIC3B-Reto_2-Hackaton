@@ -8,6 +8,7 @@
 data/
 resultados/
 cache/
+logs/
 
 # Python / Node / sistema
 __pycache__/

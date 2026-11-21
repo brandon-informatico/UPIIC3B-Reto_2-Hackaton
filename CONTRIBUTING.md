@@ -6,11 +6,11 @@
 
 | Integrante | Área | Carpeta(s) | Rama |
 |---|---|---|---|
-| Pat | Motor e integración | `src/motor/`, `src/pipeline.py`, `src/contratos.py` | `feat/motor` |
-| Brandon | IA y Azure AI Foundry | `src/ia/` | `feat/ia-foundry` |
-| Armando | Dashboard y sitio | `dashboard/`, `web/` | `feat/dashboard` |
-| Copka | Carga y limpieza | `src/datos/` | `feat/datos` |
-| Ale | Evaluación y métricas | `evaluacion/` | `feat/evaluacion` |
+| Pat | Motor e integración (E3, E5, E6) | `src/motor/`, `src/pipeline.py` | `feat/motor` |
+| Brandon | IA y Azure AI Foundry (E4) | `src/ia/` | `feat/ia-foundry` |
+| Armando | Dashboard y sitio (E9) | `dashboard/`, `web/` | `feat/dashboard` |
+| Copka | Carga y visión local (E1, E2) | `src/datos/` | `feat/datos` |
+| Ale | Evaluación y métricas (E8) | `evaluacion/` | `feat/evaluacion` |
 
 ## Flujo de ramas
 
@@ -29,6 +29,8 @@ git clone https://github.com/brandon-informatico/UPIIC3B-Reto_2-Hackaton.git
 cd UPIIC3B-Reto_2-Hackaton
 git switch feat/TU-RAMA          # ej. feat/datos
 python scripts/descargar_datos.py   # datos oficiales a data/ (no se suben)
+pip install -r requirements.txt
+python contratos/validar.py ejemplos   # los 17 ejemplos deben salir OK
 ```
 
 ## Ciclo de trabajo

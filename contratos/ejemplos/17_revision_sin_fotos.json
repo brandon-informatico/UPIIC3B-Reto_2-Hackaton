@@ -1,0 +1,80 @@
+{
+  "situacion": "17_revision_sin_fotos",
+  "descripcion": "La captura está en capturas.json pero no llegó ninguna foto. Debe aparecer igual en la salida.",
+  "E1_captura_preparada": {
+    "capture_id": "CAP-900017",
+    "capture_store_name": "Neto",
+    "capture_date": "2026-11-19 11:12:16",
+    "capture_price": 12.0,
+    "capture_brand": "Best Choice",
+    "capture_barcode": "7506233812418",
+    "id_product": 22998,
+    "product_name": "Vinagre blanco",
+    "product_barcode": "7506233812418",
+    "product_price": 12.0,
+    "min_product_price": 10.0,
+    "max_product_price": 45.0,
+    "unit_product": "mililitro",
+    "unit_quantity_product": 1100.0,
+    "product_group": "(01) SauSpi",
+    "product_line": "(06) Vinagres",
+    "rutas": {
+      "facade": null,
+      "product": null,
+      "shelf": null
+    },
+    "banderas_datos": [
+      "imagen_faltante:facade",
+      "imagen_faltante:product",
+      "imagen_faltante:shelf"
+    ]
+  },
+  "E2_features": {
+    "capture_id": "CAP-900017",
+    "estado": "sin_fotos",
+    "facade": null,
+    "product": null,
+    "shelf": null,
+    "parecido_producto_etiqueta": null,
+    "codigo_empaque": "no_leido",
+    "codigo_etiqueta": "no_leido",
+    "errores": [
+      "sin fotos"
+    ]
+  },
+  "E4_hallazgos_ia": null,
+  "E4_uso_ia": null,
+  "E5_decision_interna": {
+    "capture_id": "CAP-900017",
+    "decision": "revision_manual",
+    "p_valida": 0.5,
+    "fallas": [],
+    "reason_code": null,
+    "motivo_revision": "sin_fotos",
+    "validaciones": {
+      "tienda_fachada": "no_determinable",
+      "producto": "no_determinable",
+      "codigo_barras": "no_determinable",
+      "evidencia_precio": "no_determinable"
+    },
+    "precio_detectado": null,
+    "tipo_precio": null,
+    "codigo_barras_detectado": null,
+    "ruta_decision": "local"
+  },
+  "E6_registro_salida": {
+    "capture_id": "CAP-900017",
+    "decision": "revision_manual",
+    "confidence_score": 0.0,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "falla",
+      "producto": "falla",
+      "codigo_barras": "falla",
+      "evidencia_precio": "falla"
+    },
+    "precio_detectado": null,
+    "codigo_barras_detectado": null,
+    "explicacion": "La captura no tiene fotos; se envía a revisión manual."
+  }
+}
