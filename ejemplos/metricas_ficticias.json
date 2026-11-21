@@ -1,0 +1,82 @@
+{
+  "ficticio": true,
+  "generado": "2026-11-21T18:26:49",
+  "conjunto": "desarrollo (ficticio)",
+  "total": 100,
+  "umbrales": {
+    "precision_aprobaciones_min": 0.97,
+    "json_valido_min": 0.99
+  },
+  "precision_aprobaciones": 1.0,
+  "json_validos_pct": 1.0,
+  "costo_total": 26,
+  "costo_por_captura": 0.26,
+  "costo_desglose": {
+    "correctas": {
+      "n": 74,
+      "costo_unitario": 0
+    },
+    "revision_manual": {
+      "n": 20,
+      "costo_unitario": 1
+    },
+    "rechazo_valida": {
+      "n": 0,
+      "costo_unitario": 3
+    },
+    "aprobacion_invalida": {
+      "n": 0,
+      "costo_unitario": 10
+    }
+  },
+  "matriz_confusion": {
+    "aprobada": {
+      "aprobada": 23,
+      "rechazada": 0,
+      "revision_manual": 10
+    },
+    "rechazada": {
+      "aprobada": 0,
+      "rechazada": 24,
+      "revision_manual": 10
+    },
+    "revision_manual": {
+      "aprobada": 0,
+      "rechazada": 6,
+      "revision_manual": 27
+    }
+  },
+  "calidad_dato": {
+    "reason_code_acierto": 0.81,
+    "precio_acierto": 0.88,
+    "tipo_precio_acierto": 0.9
+  },
+  "tokens": {
+    "entrada": 188229,
+    "salida": 21000,
+    "total": 209229,
+    "por_captura": 2092
+  },
+  "llamadas": {
+    "ia": 125,
+    "evitadas": 175,
+    "imagenes_enviadas": 225,
+    "imagenes_evitadas": 75,
+    "nota": "75 fachadas repetidas se analizan una sola vez (25 únicas)"
+  },
+  "tiempo_total_s": 412,
+  "por_tanda": [
+    {
+      "tanda": "Tanda noche",
+      "total": 50,
+      "costo": 14,
+      "precision_aprobaciones": 1.0
+    },
+    {
+      "tanda": "Tanda día",
+      "total": 50,
+      "costo": 12,
+      "precision_aprobaciones": 1.0
+    }
+  ]
+}

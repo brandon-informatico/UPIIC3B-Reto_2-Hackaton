@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Validat3B · Dashboard</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<header class="barra">
+  <div>
+    <span class="tag">Hackatón 3B · Reto 2 · UPIIC3B</span>
+    <h1>Validat3B <small>dashboard del motor</small></h1>
+  </div>
+  <div class="barra-der">
+    <span id="aviso-ficticio" class="pill pill-warn" hidden>Datos ficticios</span>
+    <span id="fuente" class="muted"></span>
+    <button id="btn-recargar" class="btn">↻ Recargar</button>
+  </div>
+</header>
+
+<main>
+  <div id="aviso-previa" class="aviso-previa" hidden></div>
+  <section aria-label="Resumen de decisiones">
+    <div class="kpis" id="kpis"></div>
+    <div class="barra-dist" id="barra-dist" aria-hidden="true"></div>
+  </section>
+
+  <section>
+    <h2>Métricas del motor <span id="metricas-fuente" class="muted small"></span></h2>
+    <div id="metricas-vacio" class="vacio" hidden>Aún no hay métricas de evaluación (resultados/metricas.json de Ale).</div>
+    <div id="metricas">
+      <div class="kpis kpis-metricas" id="kpis-metricas"></div>
+      <div class="paneles">
+        <div class="panel"><h3>Costo por tipo de resultado</h3><div id="graf-costo"></div></div>
+        <div class="panel" id="panel-motivos"><h3 id="titulo-motivos">Motivos más frecuentes</h3><div id="graf-motivos"></div></div>
+        <div class="panel"><h3>Matriz de confusión <span class="muted small">real ↓ · motor →</span></h3><div id="matriz"></div></div>
+        <div class="panel"><h3>Por tanda</h3><div id="tandas"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="sec-uso" hidden>
+    <h2>Uso de IA y procesamiento <span id="uso-fuente" class="muted small"></span></h2>
+    <div class="kpis kpis-metricas" id="kpis-uso"></div>
+    <div class="paneles">
+      <div class="panel"><h3>Composición de tokens por captura</h3><div id="graf-tokens"></div></div>
+      <div class="panel"><h3>Lectura local de códigos de barras</h3><div id="graf-codigos"></div></div>
+      <div class="panel" id="panel-senales" hidden><h3>Señales de la IA <span class="muted small">(no son decisiones)</span></h3><div id="graf-senales"></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="tabla-cab">
+      <h2>Capturas <span id="conteo" class="muted small"></span></h2>
+      <div class="filtros">
+        <div class="chips" id="chips" role="group" aria-label="Filtrar por decisión"></div>
+        <input id="buscar" type="search" placeholder="Buscar ID, motivo, producto o explicación…">
+      </div>
+    </div>
+    <div class="tabla-envoltura">
+      <table id="tabla">
+        <thead><tr>
+          <th data-col="capture_id">Identificador</th>
+          <th data-col="decision">Decisión</th>
+          <th data-col="_motivo">Motivo</th>
+          <th data-col="precio_detectado" class="num">Precio</th>
+          <th data-col="confidence_score" class="num">Confianza</th>
+          <th data-col="explicacion">Explicación</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<dialog id="detalle">
+  <div class="det-cab">
+    <div><span class="muted small">Captura</span><h2 id="det-id"></h2></div>
+    <div class="det-nav">
+      <button class="btn" id="det-ant" title="Anterior (←)">←</button>
+      <button class="btn" id="det-sig" title="Siguiente (→)">→</button>
+      <button class="btn" id="det-cerrar" title="Cerrar (Esc)">✕</button>
+    </div>
+  </div>
+  <div class="det-fotos" id="det-fotos"></div>
+  <div class="det-cuerpo">
+    <div class="det-col" id="det-datos"></div>
+    <div class="det-col"><h3>Validaciones</h3><div id="det-val"></div></div>
+  </div>
+  <p id="det-expl" class="det-expl"></p>
+  <details id="det-tec" open>
+    <summary>Análisis técnico <span class="muted small">· lo que vio la IA y las señales de cada foto</span></summary>
+    <div id="det-tec-cuerpo"></div>
+  </details>
+</dialog>
+
+<script src="app.js"></script>
+</body>
+</html>
