@@ -39,10 +39,19 @@ if RECHAZAR_SIN_PRECIO_UNITARIO:
 # Metrica confirmada por los jueces: acierto en aprobada / revision / rechazo.
 # El motor decide SOLO con la evidencia de las fotos (IA + vision local). No usa fecha, hora ni tienda.
 #
-# NO_APROBAR_CON_DUDA_IA: "desactivada" (por defecto) | "relevante" | "cualquiera".
-# Con la metrica de acierto en tres categorias, mandar buenas a revision por la duda de la IA resta aciertos;
-# por defecto queda desactivada. "relevante" solo impide aprobar si alguna frase de la duda es relevante.
-NO_APROBAR_CON_DUDA_IA = "desactivada"
+# NO_APROBAR_CON_DUDA_IA: "desactivada" | "relevante" | "cualquiera".
+# "relevante" solo impide aprobar si alguna frase de la duda es relevante.
+#
+# Requisito oficial para entrar a la clasificacion: precision de aprobaciones >= 97 %. Desarrollo (100 capturas):
+#   desactivada:                     32 aprobadas, 8 invalidas -> 75.0 %  (costo 133)  NO califica
+#   relevante + etiqueta distinta:   21 aprobadas, 1 invalida  -> 95.2 %  (costo  74)  NO califica
+#   cualquiera + etiqueta distinta:  12 aprobadas, 0 invalidas -> 100 %   (costo  73)  <- elegido
+# Regla de oro de CONTEXT.md: ante la duda, revision_manual; nunca aprobada sin evidencia clara.
+NO_APROBAR_CON_DUDA_IA = "cualquiera"
+# Codigo de barras de la etiqueta de anaquel distinto al esperado: NO es falla (Walmart/Bodega imprimen otro
+# codigo), asi que nunca rechaza; pero tampoco confirma que la etiqueta sea del producto: impide aprobar.
+# En desarrollo, 5 de las 8 aprobaciones invalidas tenian etiqueta "distinto" (y 1 de 24 validas).
+NO_APROBAR_CODIGO_ETIQUETA_DISTINTO = True
 #
 # Criterio por frase (separadas por ";" o por un "." que no este entre digitos), sin acentos y en
 # minusculas. Primero gana RELEVANTE:
@@ -248,7 +257,8 @@ def decidir(features: FeaturesCaptura, hallazgos: HallazgosIA | None) -> Decisio
         _dato(hallazgos, "foto_borrosa") == "no" and
         _dato(hallazgos, "foto_de_pantalla") == "no" and
         _dato(hallazgos, "es_contratipo_permitido") in ("si", "sin_informacion") and
-        _dato(features, "codigo_empaque") != "no_coincide"
+        _dato(features, "codigo_empaque") != "no_coincide" and
+        not (NO_APROBAR_CODIGO_ETIQUETA_DISTINTO and _dato(features, "codigo_etiqueta") == "distinto")
     )
     duda = _dato(hallazgos, "duda_principal")
     if aprobable and duda and (NO_APROBAR_CON_DUDA_IA == "cualquiera" or (
