@@ -111,7 +111,8 @@ def analizar_captura(
         except ERRORES_TEMPORALES as error:
             log.warning("%s · intento %s/%s: %s", captura.capture_id, intentos, MAX_INTENTOS, type(error).__name__)
             if intentos < MAX_INTENTOS:
-                time.sleep(2**intentos)
+                # El límite por minuto necesita una pausa más larga que un error de red.
+                time.sleep(15 * intentos if isinstance(error, anthropic.RateLimitError) else 2**intentos)
         except (anthropic.APIError, ValidationError) as error:
             log.error("%s · error no recuperable: %s: %s", captura.capture_id, type(error).__name__, error)
             break
