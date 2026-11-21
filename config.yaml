@@ -5,3 +5,13 @@ rutas:
   imagenes: data/                     # las rutas imagenes/... de cada captura son relativas a data/
   salida: resultados/resultados.json
   cache: cache/
+
+# Ingesta local de fotos (src/datos, responsable Copka)
+datos:
+  salida_ingesta: cache/ingesta.json  # una entrada por captura, lista para el análisis con IA
+  hilos: 4
+  normalizacion:
+    lado_max: {facade: 512, product: 960, shelf: 960}  # px del lado largo de la copia para el modelo
+    clahe: {facade: 2.0, product: 2.0, shelf: 3.0}     # emparejado de luz (solo en la copia para el modelo)
+    calidad_jpeg: 85
+    leer_codigos: true                                 # requiere zxing-cpp
