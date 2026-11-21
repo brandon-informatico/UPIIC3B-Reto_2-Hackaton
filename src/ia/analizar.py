@@ -1,7 +1,7 @@
 """E4 · analizar_captura(captura, features) -> (HallazgosIA | None, UsoIA | None).
 
 - Salida estructurada: el modelo responde con el schema de HallazgosIA y pydantic la valida.
-- Caché en cache/ia/<capture_id>.json por versión de prompt: no se paga dos veces la misma captura.
+- Caché en cache/ia/<capture_id>.json por versión de prompt y modelo: no se paga dos veces la misma captura.
 - Reintentos acotados solo en errores temporales (límite por minuto, red, 5xx).
 - Si la IA falla regresa (None, uso_ia | None) y el motor manda la captura a revision_manual (ia_error).
 """
@@ -9,12 +9,14 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 import time
 
 import anthropic
 from pydantic import ValidationError
 
 from contratos import CapturaPreparada, FeaturesCaptura, HallazgosIA, UsoIA
+from src.archivos import nombre_archivo
 from src.ia.cliente import RAIZ, crear_cliente, leer_config
 from src.ia.imagenes import TIPOS_FOTO, TITULOS, bloque_imagen, rutas_fotos
 from src.ia.prompt import INSTRUCCIONES, VERSION_PROMPT, describir_captura
@@ -43,14 +45,19 @@ def version_completa(pensamiento: str, esfuerzo: str | None) -> str:
     return f"{VERSION_PROMPT}/{pensamiento}" + (f"-{esfuerzo}" if esfuerzo else "")
 
 
-def _leer_cache(capture_id: str, version: str) -> tuple[HallazgosIA, UsoIA] | None:
-    ruta_cache = CARPETA_CACHE / f"{capture_id}.json"
+def _ruta_cache(capture_id: str):
+    return CARPETA_CACHE / f"{nombre_archivo(capture_id)}.json"
+
+
+def _leer_cache(capture_id: str, version: str, modelo: str | None) -> tuple[HallazgosIA, UsoIA] | None:
+    """Respuesta guardada solo si es de la misma versión de prompt y del mismo modelo (FOUNDRY_MODEL)."""
+    ruta_cache = _ruta_cache(capture_id)
     if not ruta_cache.exists():
         return None
     try:
         datos = json.loads(ruta_cache.read_text(encoding="utf-8"))
         uso_ia = UsoIA(**datos["uso_ia"])
-        if uso_ia.version_prompt != version:
+        if uso_ia.version_prompt != version or (modelo and uso_ia.modelo != modelo):
             return None
         return HallazgosIA(**datos["hallazgos"]), uso_ia
     except (ValueError, KeyError, ValidationError):
@@ -61,7 +68,7 @@ def _leer_cache(capture_id: str, version: str) -> tuple[HallazgosIA, UsoIA] | No
 def _guardar_cache(capture_id: str, hallazgos: HallazgosIA, uso_ia: UsoIA) -> None:
     CARPETA_CACHE.mkdir(parents=True, exist_ok=True)
     datos = {"hallazgos": hallazgos.model_dump(), "uso_ia": uso_ia.model_dump()}
-    (CARPETA_CACHE / f"{capture_id}.json").write_text(json.dumps(datos, ensure_ascii=False, indent=2), encoding="utf-8")
+    _ruta_cache(capture_id).write_text(json.dumps(datos, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
 def _armar_contenido(captura: CapturaPreparada, features: FeaturesCaptura | None) -> list[dict]:
@@ -86,7 +93,8 @@ def analizar_captura(
 ) -> tuple[HallazgosIA | None, UsoIA | None]:
     """Manda las fotos de una captura al modelo y regresa sus hallazgos y el consumo."""
     version = version_completa(pensamiento, esfuerzo)
-    if usar_cache and (en_cache := _leer_cache(captura.capture_id, version)):
+    modelo = os.getenv("FOUNDRY_MODEL", "").strip() or None  # .env ya se cargó en src.ia.cliente
+    if usar_cache and (en_cache := _leer_cache(captura.capture_id, version, modelo)):
         return en_cache
 
     config = leer_config()

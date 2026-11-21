@@ -5,10 +5,13 @@
 !.env.example
 
 # Datos del reto: NO subir (llave, imágenes, capturas)
-data/
-resultados/
-cache/
-logs/
+# Sin "/" final: así también se ignoran los enlaces simbólicos con esos nombres (data -> ../repo/data).
+/data
+/resultados
+/cache
+/logs
+/descargas
+*.zip
 
 # Python / Node / sistema
 __pycache__/
@@ -16,6 +19,6 @@ __pycache__/
 node_modules/
 dist/
 .DS_Store
+.wrangler/
 
-# Contratos internos del equipo: se comparten fuera de GitHub
-contratos/
+# contratos/ SÍ se versiona: todo el código lo importa y sin él un clon limpio no corre.

@@ -41,6 +41,29 @@ def _funcion(modulos: Iterable[str], nombre: str) -> Callable[..., Any]:
     raise ImportError(f"No se encontro {nombre} en {list(modulos)}. {errores}")
 
 
+class IANoDisponible(RuntimeError):
+    """E4 no se puede usar (falta el SDK o FOUNDRY_* en .env)."""
+
+
+def _preparar_ia() -> Callable[[Any, Any], Any]:
+    """Carga E4 y valida su configuracion al inicio.
+
+    Antes, si faltaba la llave o el paquete anthropic, la corrida terminaba "bien" con el 100 % de las
+    capturas en revision_manual. Ahora falla de inmediato con un mensaje claro.
+    """
+    try:
+        from src.ia.analizar import analizar_captura
+        from src.ia.cliente import leer_config
+        leer_config()
+    except (ImportError, RuntimeError) as error:  # RuntimeError: ConfiguracionFaltante
+        raise IANoDisponible(f"E4 (IA) no disponible: {error}") from error
+
+    def analizar(captura: Any, features: Any) -> Any:
+        # src.ia.analizar espera CapturaPreparada; el cargador entrega diccionarios.
+        return analizar_captura(como_captura_preparada(captura), features)
+    return analizar
+
+
 def _valor(objeto: Any, nombre: str, defecto: Any = None) -> Any:
     if isinstance(objeto, dict):
         return objeto.get(nombre, defecto)
@@ -100,17 +123,14 @@ def _procesar_una(
                 ), metadatos
             metadatos["llamo_ia"] = True
             try:
-                respuesta = analizar(captura, features)
-                hallazgos, uso_ia = respuesta
+                hallazgos, uso_ia = analizar(captura, features)
             except Exception as exc:
                 LOG.warning("IA fallo para %s: %s", capture_id, type(exc).__name__)
+                metadatos["error"] = "ia_error"
                 return crear_respaldo(
                     capture_id, "ia_error", "No fue posible analizar la evidencia con IA."
                 ), metadatos
-            if hallazgos is None:
-                return crear_respaldo(
-                    capture_id, "ia_error", "La IA no devolvio hallazgos validos."
-                ), metadatos
+            # Los tokens se registran aunque la respuesta no sirva: la llamada si se pago.
             if uso_ia is not None:
                 uso = uso_ia.model_dump() if hasattr(uso_ia, "model_dump") else dict(uso_ia)
                 metadatos["uso_ia"] = uso
@@ -122,6 +142,11 @@ def _procesar_una(
                         if isinstance(uso.get(nombre), (int, float)):
                             metadatos[clave] = uso[nombre]
                             break
+            if hallazgos is None:
+                metadatos["error"] = "ia_error"
+                return crear_respaldo(
+                    capture_id, "ia_error", "La IA no devolvio hallazgos validos."
+                ), metadatos
             decision = _convertir_decision(decidir(features, hallazgos))
             if _valor(decision, "decision") == "aprobada" and _valor(
                 decision, "ruta_decision"
@@ -173,19 +198,8 @@ def ejecutar(ruta_capturas: Path, ruta_salida: Path, *, sin_ia: bool = False,
         LOG.info("E2: usando la ingesta de Copka via src/motor/integracion.py")
         normalizar = normalizar_con_ingesta
     decidir = _funcion(("src.motor.decisiones",), "decidir")
-    analizar = None
-    if not sin_ia:
-        try:
-            analizar_ia = _funcion(
-                ("src.ia.analizar", "src.ia.cliente", "src.ia.analisis"),
-                "analizar_captura",
-            )
-
-            def analizar(captura: Any, features: Any) -> Any:
-                # src.ia.analizar espera CapturaPreparada; el cargador entrega diccionarios.
-                return analizar_ia(como_captura_preparada(captura), features)
-        except ImportError:
-            LOG.warning("E4 no disponible: casos sin decision local iran a revision")
+    # Antes de leer o normalizar nada: sin E4 no se aprueba ninguna captura.
+    analizar = None if sin_ia else _preparar_ia()
     capturas = list(cargar(ruta_capturas))
     features_por_id = _normalizar_seguro(capturas, normalizar)
     registros: list[RegistroSalida] = []
@@ -226,6 +240,11 @@ def ejecutar(ruta_capturas: Path, ruta_salida: Path, *, sin_ia: bool = False,
     resumen = Counter(str(_valor(r, "decision", "desconocida")) for r in registros)
     LOG.info("Capturas=%d, decisiones=%s, salida=%s, log=%s",
              len(capturas), dict(resumen), ruta_salida, ruta_log)
+    errores = Counter(m["error"] for _, m in procesadas if m.get("error"))
+    if errores:
+        LOG.warning("%d capturas terminaron en revision por error %s: revisa %s y vuelve a correr "
+                    "(la cache de IA evita pagar las que ya salieron bien)",
+                    sum(errores.values()), dict(errores), ruta_log)
     return dict(resumen)
 
 
@@ -237,7 +256,12 @@ def main() -> None:
     parser.add_argument("--hilos", type=int, default=2, help="capturas en paralelo (limite de tokens/minuto)")
     argumentos = parser.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
-    ejecutar(argumentos.capturas, argumentos.salida, sin_ia=argumentos.sin_ia, hilos=argumentos.hilos)
+    try:
+        ejecutar(argumentos.capturas, argumentos.salida, sin_ia=argumentos.sin_ia, hilos=argumentos.hilos)
+    except IANoDisponible as error:
+        LOG.error("%s. Instala requirements.txt y llena .env (FOUNDRY_*), o usa --sin-ia para una prueba "
+                  "que no aprueba nada.", error)
+        raise SystemExit(1) from None
 
 
 if __name__ == "__main__":
