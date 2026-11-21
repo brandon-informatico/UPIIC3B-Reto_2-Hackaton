@@ -6,17 +6,12 @@ rutas:
   salida: resultados/resultados.json
   cache: cache/
 
-# E1 carga + E2 visión local (src/datos, responsable Copa). Salidas dentro de rutas.cache
+# Ingesta local de fotos (src/datos, responsable Copka)
 datos:
-  salidas:
-    indice_fotos: indice_fotos.json                 # IndiceFotos
-    capturas_preparadas: capturas_preparadas.json   # list[CapturaPreparada]
-    features: features.json                         # {capture_id: FeaturesCaptura}
-    reporte: reporte_datos.json
-  hilos: 6
+  salida_ingesta: cache/ingesta.json  # una entrada por captura, lista para el análisis con IA
+  hilos: 4
   normalizacion:
-    # px del lado largo de la copia para la IA. Etiqueta a 768: ~590 tokens (vs 922 a 960) sin perder lectura.
-    lado_max: {facade: 512, product: 960, shelf: 768}
-    clahe: {facade: 2.0, product: 2.0, shelf: 3.0}  # emparejado de luz (solo en la copia para la IA)
+    lado_max: {facade: 512, product: 960, shelf: 960}  # px del lado largo de la copia para el modelo
+    clahe: {facade: 2.0, product: 2.0, shelf: 3.0}     # emparejado de luz (solo en la copia para el modelo)
     calidad_jpeg: 85
-    leer_codigos: true                              # requiere zxing-cpp
+    leer_codigos: true                                 # requiere zxing-cpp

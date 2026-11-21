@@ -15,6 +15,9 @@ from typing import Any
 
 log = logging.getLogger(__name__)
 
+# Campos que el motor no debe leer (solo existen en desarrollo).
+CAMPOS_ETIQUETA = ("decision_esperada", "motivo_rechazo")
+
 CAMPOS_TEXTO = (
     "capture_id", "capture_store_name", "capture_date", "capture_brand", "product_name",
     "unit_product", "product_group", "product_line", "facade_file", "product_file", "shelf_file",
@@ -70,10 +73,8 @@ def limpiar_numero(valor: Any) -> float | None:
     return None if math.isnan(numero) else numero
 
 
-def limpiar_captura(captura: dict[str, Any]) -> dict[str, Any]:
+def limpiar_captura(captura: dict[str, Any], incluir_etiquetas: bool = False) -> dict[str, Any]:
     """Regresa una copia limpia de la captura con la lista ``banderas_datos``.
-
-    Nunca copia ``decision_esperada`` ni ``motivo_rechazo`` (solo sirven para evaluar).
 
     Las banderas describen problemas de datos (no de imagen) para que el motor decida qué hacer:
     ``campo_vacio:<campo>``, ``precio_invalido:<campo>``, ``id_invalido``, ``precio_fuera_de_rango``,
@@ -97,6 +98,10 @@ def limpiar_captura(captura: dict[str, Any]) -> dict[str, Any]:
     limpia["unit_quantity_product"] = limpiar_numero(captura.get("unit_quantity_product"))
     id_producto = limpiar_numero(captura.get("id_product"))
     limpia["id_product"] = int(id_producto) if id_producto is not None else None
+
+    if incluir_etiquetas:
+        for campo in CAMPOS_ETIQUETA:
+            limpia[campo] = limpiar_texto(captura.get(campo)) or ""
 
     for campo in CAMPOS_OBLIGATORIOS:
         if limpia.get(campo) is None:
