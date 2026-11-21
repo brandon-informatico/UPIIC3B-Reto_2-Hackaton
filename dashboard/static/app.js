@@ -9,6 +9,33 @@ const DECISIONES = {
 };
 const ETQ_DECISION = { aprobada: "aprobada", rechazada: "rechazada", revision_manual: "revisión manual", pendiente: "pendiente" };
 const CORTO = { aprobada: "Aprob.", rechazada: "Rech.", revision_manual: "Revisión" };
+// Razones en lenguaje normal (vista ejecutiva). Claves: reason_code y motivo_revision de contratos.py
+const RAZONES = {
+  PRODUCTO_NO_COINCIDE: "El producto no es el esperado", CONTRATIPO_INVALIDO: "Sustituto no permitido",
+  DESCRIPCION_INCOMPLETA: "Etiqueta con descripción incompleta", PRODUCTO_NO_VISIBLE: "No se ve el producto",
+  FACHADA_INCORRECTA: "La tienda no corresponde", CAPTURA_LEJANA: "Foto tomada de lejos",
+  IMAGEN_BORROSA: "Foto borrosa", FOTO_DE_PANTALLA: "Foto tomada a una pantalla",
+  SIN_ETIQUETA_PRECIO: "No se ve la etiqueta de precio", SIN_PRECIO_UNITARIO: "Falta el precio unitario",
+  duda_identidad: "Duda sobre el producto", duda_calidad: "Calidad de foto dudosa", duda_precio: "Precio poco legible",
+  dos_precios: "La etiqueta tiene dos precios", precio_distinto_al_capturado: "Precio distinto al capturado",
+  contratipo_sin_informacion: "Sustituto sin información", confianza_insuficiente: "Confianza insuficiente para aprobar",
+  imagen_faltante: "Falta una foto", imagen_corrupta: "Foto dañada", sin_fotos: "Sin fotos",
+  ia_error: "No se pudo analizar", salida_invalida: "Error al procesar",
+};
+// El log del motor no trae motivo_revision: se reconoce por el texto fijo de la explicación (src/motor/salida.py)
+const TEXTO_A_MOTIVO = [
+  ["identidad o el contenido", "duda_identidad"], ["calidad de la evidencia no permite", "duda_calidad"],
+  ["leer con claridad el precio", "duda_precio"], ["mas de un precio", "dos_precios"], ["más de un precio", "dos_precios"],
+  ["no coincide con el capturado", "precio_distinto_al_capturado"], ["validar el contratipo", "contratipo_sin_informacion"],
+  ["confianza necesaria", "confianza_insuficiente"], ["Falta al menos una", "imagen_faltante"],
+  ["no se pudo abrir", "imagen_corrupta"], ["no tiene fotos", "sin_fotos"], ["analizar la evidencia con IA", "ia_error"],
+  ["IA no devolvio", "ia_error"], ["IA no disponible", "ia_error"], ["Error interno", "salida_invalida"],
+  ["No fue posible normalizar", "salida_invalida"],
+];
+function motivoDesdeTexto(t) {
+  for (const [frase, m] of TEXTO_A_MOTIVO) if ((t || "").includes(frase)) return m;
+  return null;
+}
 const RUTAS = { ia: "Análisis con IA", local: "Reglas locales (sin IA)", error: "Error (respaldo)" };
 const RESPALDO = new Set(["imagen_faltante", "imagen_corrupta", "sin_fotos", "ia_error", "salida_invalida"]);
 const FOTOS = [["fachada", "Fachada"], ["producto", "Producto"], ["etiqueta", "Etiqueta"]];
@@ -52,8 +79,11 @@ async function cargar() {
     estado.previa = !!res.vista_previa;
     estado.capturas = (res.capturas || []).filter((c) => c && typeof c === "object");
     for (const c of estado.capturas) {  // motivo único: reason_code (rechazo) o motivo_revision (E5)
-      c._motivo = c.reason_code || c._interno?.motivo_revision || null;
-      c._es_revision = !c.reason_code && !!c._interno?.motivo_revision;
+      c._motivo = c.reason_code || c._interno?.motivo_revision ||
+        (c.decision === "revision_manual" ? motivoDesdeTexto(c.explicacion) : null);
+      c._es_revision = !c.reason_code && !!c._motivo;
+      c._razon = c.decision === "aprobada" ? "Todo coincide" : (RAZONES[c._motivo] || c._motivo ||
+        (c.decision === "revision_manual" ? "Requiere revisión" : "—"));
     }
     const aviso = $("#aviso-ficticio");
     aviso.hidden = !(res.ficticio || (met && met.ficticio));
@@ -61,11 +91,11 @@ async function cargar() {
     if (estado.previa) { aviso.hidden = false; aviso.textContent = "Vista previa · datos reales"; }
     const ap = $("#aviso-previa");
     ap.hidden = !estado.previa;
-    ap.textContent = "Vista previa con las capturas reales: todavía no hay resultados del motor (resultados/resultados.json). " +
-      "Se muestran sin decisión, con lo que ya produjeron la ingesta y la IA. El dashboard no decide nada.";
+    ap.textContent = "Vista previa: todavía no hay resultados del motor. Se muestran las capturas reales sin decisión.";
     $("#fuente").textContent = res.fuente ? `${res.fuente} · ${horaLocal(res.modificado)}` : (res.aviso || "sin resultados");
     $("#fuente").title = res.decisiones ? "Decisión interna: " + res.decisiones : "Sin log de decisión interna";
     pintarResumen();
+    pintarCumple(met, rep);
     pintarMetricas(met);
     pintarUso(rep);
     pintarChips();
@@ -187,15 +217,15 @@ function pintarMotivos() {
   const cuenta = new Map();
   for (const c of estado.capturas) {
     if (c.decision === "aprobada") continue;
-    const k = c._motivo || "(sin motivo)";
+    const k = c._razon || "Sin razón";
     const v = cuenta.get(k) || { n: 0, d: c.decision }; v.n++; cuenta.set(k, v);
   }
-  const lista = [...cuenta.entries()].sort((a, b) => b[1].n - a[1].n).slice(0, 8);
-  if (!lista.length) return g.append(el("p", { class: "muted" }, "Sin rechazos ni revisiones."));
+  const lista = [...cuenta.entries()].sort((a, b) => b[1].n - a[1].n).slice(0, 5);
+  if (!lista.length) return g.append(el("p", { class: "muted" }, estado.previa ? "Disponible cuando el motor entregue resultados." : "Sin rechazos ni revisiones."));
   const max = lista[0][1].n;
   for (const [k, v] of lista)
     g.append(hbar(k, v.n / max, String(v.n), DECISIONES[v.d]?.color || "var(--neutral)", `${k}: ${v.n} (${decTexto(v.d)})`));
-  g.append(el("p", { class: "muted small" }, "Rojo: reason_code de rechazo · ámbar: motivo de revisión (log interno)."));
+  g.append(el("p", { class: "muted small" }, "Rojo: rechazo · ámbar: revisión manual."));
 }
 
 // ---------- tabla ----------
@@ -214,7 +244,7 @@ function pintarTabla() {
   const q = estado.texto.trim().toLowerCase();
   let filas = estado.capturas.filter((c) =>
     (estado.filtro === "todas" || c.decision === estado.filtro) &&
-    (!q || [c.capture_id, c._motivo, c.explicacion, c.decision, c._meta?.producto_esperado, c._meta?.tienda].some((v) => String(v ?? "").toLowerCase().includes(q))));
+    (!q || [c.capture_id, c._motivo, c._razon, c.explicacion, c.decision, c._meta?.producto_esperado, c._meta?.tienda].some((v) => String(v ?? "").toLowerCase().includes(q))));
   const { col, dir } = estado;
   filas.sort((a, b) => {
     const x = a[col], y = b[col];
@@ -222,20 +252,22 @@ function pintarTabla() {
     return (typeof x === "number" && typeof y === "number" ? x - y : String(x).localeCompare(String(y), "es")) * dir;
   });
   estado.visibles = filas;
-  document.querySelectorAll("#tabla th").forEach((th) =>
-    th.className = (th.dataset.col === col ? (dir > 0 ? "orden-asc " : "orden-desc ") : "") + (th.classList.contains("num") || ["precio_detectado", "confidence_score"].includes(th.dataset.col) ? "num" : ""));
+  document.querySelectorAll("#tabla th").forEach((th) => {
+    th.classList.remove("orden-asc", "orden-desc");
+    if (th.dataset.col === col) th.classList.add(dir > 0 ? "orden-asc" : "orden-desc");
+  });
   const tb = $("#tabla tbody"); tb.replaceChildren();
-  if (!filas.length) tb.append(el("tr", {}, el("td", { colspan: 6, class: "vacio" }, "Sin capturas para este filtro.")));
+  if (!filas.length) tb.append(el("tr", {}, el("td", { colspan: 4, class: "vacio" }, "Sin capturas para este filtro.")));
   filas.forEach((c, i) => tb.append(el("tr", { onclick: () => abrirDetalle(i), tabindex: 0, onkeydown: (e) => e.key === "Enter" && abrirDetalle(i) },
     el("td", { class: "id" }, c.capture_id ?? "—"),
     el("td", {}, el("span", { class: decClase(c.decision) }, decTexto(c.decision))),
-    el("td", { class: "codigo" + (c._es_revision ? " motivo-rev" : "") }, c._motivo ?? "—"),
+    el("td", { class: "razon", title: c._motivo || "" }, c._razon ?? "—"),
     el("td", { class: "num" }, c.precio_detectado == null && c._precio_ia != null
         ? el("span", { class: "precio-ia", title: "Precio leído por la IA (no es decisión del motor)" }, dinero(c._precio_ia))
         : dinero(c.precio_detectado),
       c._interno?.tipo_precio && c._interno.tipo_precio !== "regular" ? el("div", { class: "tipo-precio" }, c._interno.tipo_precio) : null),
-    el("td", { class: "num" }, c.confidence_score == null ? "—" : Number(c.confidence_score).toFixed(2)),
-    el("td", { class: "expl" }, c.explicacion || c._error || ""))));
+    el("td", { class: "num solo-tec" }, c.confidence_score == null ? "—" : Number(c.confidence_score).toFixed(2)),
+    el("td", { class: "expl solo-tec" }, c.explicacion || c._error || ""))));
   $("#conteo").textContent = `· ${filas.length} de ${estado.capturas.length}`;
 }
 
@@ -260,10 +292,12 @@ function abrirDetalle(i) {
   const dif = meta.precio_capturado != null && c.precio_detectado != null ? Number(c.precio_detectado) - Number(meta.precio_capturado) : null;
   $("#det-datos").replaceChildren(el("h3", {}, "Datos"), el("dl", { class: "dl" },
     fila("Decisión", el("span", { class: decClase(c.decision) }, decTexto(c.decision))),
-    fila("reason_code", el("span", { class: "codigo" }, c.reason_code ?? "—")),
-    it.motivo_revision ? fila("Motivo de revisión", el("span", { class: "codigo motivo-rev" }, it.motivo_revision)) : null,
-    fila("Confianza", c.confidence_score == null ? "—" : Number(c.confidence_score).toFixed(2)),
-    it.ruta_decision ? fila("Ruta de decisión", RUTAS[it.ruta_decision] || it.ruta_decision) : null,
+    fila("Razón", c._razon ?? "—"),
+    ...(document.body.classList.contains("tecnica") ? [fila("reason_code", el("span", { class: "codigo" }, c.reason_code ?? "—"))] : []),
+    ...(document.body.classList.contains("tecnica") ? [
+      it.motivo_revision ? fila("Motivo de revisión", el("span", { class: "codigo motivo-rev" }, it.motivo_revision)) : null,
+      fila("Confianza", c.confidence_score == null ? "—" : Number(c.confidence_score).toFixed(2)),
+      it.ruta_decision ? fila("Ruta de decisión", RUTAS[it.ruta_decision] || it.ruta_decision) : null] : []),
     meta.tienda ? fila("Tienda", meta.tienda) : null,
     meta.producto_esperado ? fila("Producto esperado", meta.producto_esperado + (meta.marca ? ` · ${meta.marca}` : "")) : null,
     fila("Precio capturado", dinero(meta.precio_capturado)),
@@ -276,17 +310,17 @@ function abrirDetalle(i) {
   const caja = $("#det-val");
   caja.replaceChildren(...VALIDACIONES.map(([k, et]) => el("div", { class: "val" }, el("span", {}, et),
     el("span", {}, estadoVal(v[k]),
-      vi[k] && vi[k] !== v[k] ? el("span", { class: "muted small", title: "Valor interno del motor (E5)" }, "  · interno: ", estadoVal(vi[k])) : null))));
+      vi[k] && vi[k] !== v[k] ? el("span", { class: "muted small solo-tec", title: "Valor interno del motor (E5)" }, "  · interno: ", estadoVal(vi[k])) : null))));
   if (respaldo)
     caja.prepend(el("div", { class: "aviso-respaldo" }, "Sin análisis completo · ", RUTAS[it.ruta_decision] || it.motivo_revision,
       ". Las validaciones en «falla» de la salida oficial son de respaldo, no hallazgos."));
   const fallas = it.fallas || [];
   if (fallas.length)
-    caja.append(el("h3", { style: "margin-top:16px" }, "Fallas detectadas"),
-      ...fallas.map((f, n) => el("div", { class: "falla" + (n === 0 ? " falla-principal" : "") },
+    caja.append(el("h3", { style: "margin-top:16px", class: "solo-tec" }, "Fallas detectadas"),
+      ...fallas.map((f, n) => el("div", { class: "falla solo-tec" + (n === 0 ? " falla-principal" : "") },
         el("span", { class: "codigo" }, f.reason_code), el("span", { class: "muted small" }, ` ${f.frente?.replace("_", " · ") ?? ""} · fuente ${f.fuente ?? "?"}`),
         f.detalle ? el("div", { class: "muted small" }, f.detalle) : null)),
-      fallas.length > 1 ? el("p", { class: "muted small" }, "La primera es la que se reporta (prioridad identidad → calidad → precio).") : null);
+      fallas.length > 1 ? el("p", { class: "muted small solo-tec" }, "La primera es la que se reporta (prioridad identidad → calidad → precio).") : null);
   $("#det-expl").textContent = c.explicacion || c._error || "Sin explicación.";
   pintarTecnico(c.capture_id, i);
   $("#det-ant").disabled = i <= 0; $("#det-sig").disabled = i >= estado.visibles.length - 1;
@@ -304,6 +338,46 @@ function estadoVal(x) {
 function ampliar(src, alt) {
   const im = el("img", { src, alt, class: "ampliada", onclick: () => im.remove() });
   $("#detalle").append(im);
+}
+
+// ---------- ¿cumple el motor? (vista ejecutiva) ----------
+function jsonValido(c) {  // misma forma que RegistroSalida (contratos.py), revisión rápida en el navegador
+  const v = c.validaciones || {};
+  return /^CAP-\d+$/.test(c.capture_id || "") && ["aprobada", "rechazada", "revision_manual"].includes(c.decision) &&
+    typeof c.confidence_score === "number" && c.confidence_score >= 0 && c.confidence_score <= 1 &&
+    ["tienda_fachada", "producto", "codigo_barras", "evidencia_precio"].every((k) => v[k] === "ok" || v[k] === "falla") &&
+    typeof c.explicacion === "string" && c.explicacion.length > 0 && (c.decision !== "rechazada" || !!c.reason_code);
+}
+function pintarCumple(resp, rep) {
+  const m = resp?.metricas, caja = $("#kpis-cumple"); caja.replaceChildren();
+  const minPrec = m?.umbrales?.precision_aprobaciones_min ?? 0.97, minJson = m?.umbrales?.json_valido_min ?? 0.99;
+  const meta = (ok, si = "cumple", no = "no cumple") => ({ ok, texto: ok ? "✓ " + si : "✕ " + no });
+  // 1) precisión de aprobaciones: solo la puede calcular la evaluación (necesita las respuestas correctas)
+  const p = m?.precision_aprobaciones;
+  caja.append(p != null
+    ? kpi("Precisión de aprobaciones", pct(p), `mínimo ${pct(minPrec, 0)}`, p >= minPrec ? "acento-ok" : "acento-bad", null, meta(p >= minPrec))
+    : kpi("Precisión de aprobaciones", "—", `mínimo ${pct(minPrec, 0)} · pendiente de evaluación`, "acento-ink"));
+  // 2) JSON válido: de la evaluación o, si no hay, revisado aquí sobre los resultados cargados
+  let j = m?.json_validos_pct, sub = `mínimo ${pct(minJson, 0)}`;
+  if (j == null && !estado.previa && estado.capturas.length) {
+    j = estado.capturas.filter(jsonValido).length / estado.capturas.length; sub += " · revisado en el dashboard";
+  }
+  caja.append(j != null
+    ? kpi("Registros con JSON válido", pct(j), sub, j >= minJson ? "acento-ok" : "acento-bad", null, meta(j >= minJson))
+    : kpi("Registros con JSON válido", "—", sub + " · sin resultados aún", "acento-ink"));
+  // 3) costo por captura (evaluación) o, mientras no exista, tokens por captura (eficiencia)
+  if (m?.costo_por_captura != null)
+    caja.append(kpi("Costo por captura", String(m.costo_por_captura), `costo total ${num(m.costo_total)} · menor es mejor`, "acento-ink"));
+  else if (rep?.ia?.tokens_por_captura)
+    caja.append(kpi("Tokens por captura", num(rep.ia.tokens_por_captura), "eficiencia · costo pendiente de evaluación", "acento-ink"));
+  else caja.append(kpi("Costo por captura", "—", "pendiente de evaluación", "acento-ink"));
+}
+function aplicarVista(tecnica) {
+  document.body.classList.toggle("tecnica", tecnica);
+  $("#btn-tecnica").setAttribute("aria-pressed", String(tecnica));
+  $("#btn-tecnica").textContent = tecnica ? "Vista ejecutiva" : "Vista técnica";
+  try { localStorage.setItem("v3b_tecnica", tecnica ? "1" : "0"); } catch { /* sin almacenamiento */ }
+  if ($("#detalle").open && estado.idx >= 0) abrirDetalle(estado.idx);
 }
 
 // ---------- uso de IA (reportes de Copka y Brandon) ----------
@@ -428,6 +502,8 @@ async function pintarTecnico(cid, idx) {
 
 // ---------- eventos ----------
 $("#btn-recargar").addEventListener("click", cargar);
+$("#btn-tecnica").addEventListener("click", () => aplicarVista(!document.body.classList.contains("tecnica")));
+try { aplicarVista(localStorage.getItem("v3b_tecnica") === "1"); } catch { aplicarVista(false); }
 $("#buscar").addEventListener("input", (e) => { estado.texto = e.target.value; pintarTabla(); });
 document.querySelectorAll("#tabla th").forEach((th) => th.addEventListener("click", () => {
   estado.dir = estado.col === th.dataset.col ? -estado.dir : 1; estado.col = th.dataset.col; pintarTabla();
