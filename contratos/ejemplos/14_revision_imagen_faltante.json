@@ -1,0 +1,100 @@
+{
+  "situacion": "14_revision_imagen_faltante",
+  "descripcion": "Falta la foto de producto. No se llama a la IA.",
+  "E1_captura_preparada": {
+    "capture_id": "CAP-900014",
+    "capture_store_name": "Neto",
+    "capture_date": "2026-11-19 11:12:16",
+    "capture_price": 12.0,
+    "capture_brand": "Best Choice",
+    "capture_barcode": "7506233812418",
+    "id_product": 22998,
+    "product_name": "Vinagre blanco",
+    "product_barcode": "7506233812418",
+    "product_price": 12.0,
+    "min_product_price": 10.0,
+    "max_product_price": 45.0,
+    "unit_product": "mililitro",
+    "unit_quantity_product": 1100.0,
+    "product_group": "(01) SauSpi",
+    "product_line": "(06) Vinagres",
+    "rutas": {
+      "facade": "imagenes/CAP-900014_facade.jpg",
+      "product": null,
+      "shelf": "imagenes/CAP-900014_shelf.jpg"
+    },
+    "banderas_datos": [
+      "imagen_faltante:product"
+    ]
+  },
+  "E2_features": {
+    "capture_id": "CAP-900014",
+    "estado": "incompleta",
+    "facade": {
+      "original_wh": "720x960",
+      "final_wh": "384x512",
+      "ruta_normalizada": "cache/normalizadas/facade/CAP-900014_facade.jpg",
+      "tokens_aprox": 262,
+      "brillo": 116.0,
+      "nitidez": 1120.6,
+      "nitidez_norm": 0.3667,
+      "nitidez_zona_max": 4.1824,
+      "codigos_leidos": null,
+      "hash": "de0cd56b956f4c96c8ca18aee4bd5d5a",
+      "repetida": false
+    },
+    "product": null,
+    "shelf": {
+      "original_wh": "720x960",
+      "final_wh": "720x960",
+      "ruta_normalizada": "cache/normalizadas/shelf/CAP-900014_shelf.jpg",
+      "tokens_aprox": 922,
+      "brillo": 117.1,
+      "nitidez": 515.0,
+      "nitidez_norm": 0.2156,
+      "nitidez_zona_max": 2.0627,
+      "codigos_leidos": []
+    },
+    "parecido_producto_etiqueta": null,
+    "codigo_empaque": "no_leido",
+    "codigo_etiqueta": "no_leido",
+    "errores": [
+      "falta foto: product"
+    ]
+  },
+  "E4_hallazgos_ia": null,
+  "E4_uso_ia": null,
+  "E5_decision_interna": {
+    "capture_id": "CAP-900014",
+    "decision": "revision_manual",
+    "p_valida": 0.5,
+    "fallas": [],
+    "reason_code": null,
+    "motivo_revision": "imagen_faltante",
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "no_determinable",
+      "codigo_barras": "no_determinable",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": null,
+    "tipo_precio": null,
+    "codigo_barras_detectado": null,
+    "ruta_decision": "local"
+  },
+  "E6_registro_salida": {
+    "capture_id": "CAP-900014",
+    "decision": "revision_manual",
+    "confidence_score": 0.5,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "falla",
+      "codigo_barras": "falla",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": null,
+    "codigo_barras_detectado": null,
+    "explicacion": "Falta la foto del producto; se envía a revisión manual."
+  }
+}
