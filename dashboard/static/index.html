@@ -14,7 +14,8 @@
   </div>
   <div class="barra-der">
     <span id="aviso-ficticio" class="pill pill-warn" hidden>Datos ficticios</span>
-    <span id="fuente" class="muted"></span>
+    <span id="fuente" class="muted small solo-tec"></span>
+    <button id="btn-tecnica" class="btn" aria-pressed="false">Vista técnica</button>
     <button id="btn-recargar" class="btn">↻ Recargar</button>
   </div>
 </header>
@@ -27,20 +28,25 @@
   </section>
 
   <section>
+    <h2>¿Cumple el motor?</h2>
+    <div class="kpis kpis-cumple" id="kpis-cumple"></div>
+    <div class="panel panel-razones"><h3>Principales razones de rechazo o revisión</h3><div id="graf-motivos"></div></div>
+  </section>
+
+  <section class="solo-tec">
     <h2>Métricas del motor <span id="metricas-fuente" class="muted small"></span></h2>
     <div id="metricas-vacio" class="vacio" hidden>Aún no hay métricas de evaluación (resultados/metricas.json de Ale).</div>
     <div id="metricas">
       <div class="kpis kpis-metricas" id="kpis-metricas"></div>
       <div class="paneles">
         <div class="panel"><h3>Costo por tipo de resultado</h3><div id="graf-costo"></div></div>
-        <div class="panel" id="panel-motivos"><h3 id="titulo-motivos">Motivos más frecuentes</h3><div id="graf-motivos"></div></div>
         <div class="panel"><h3>Matriz de confusión <span class="muted small">real ↓ · motor →</span></h3><div id="matriz"></div></div>
         <div class="panel"><h3>Por tanda</h3><div id="tandas"></div></div>
       </div>
     </div>
   </section>
 
-  <section id="sec-uso" hidden>
+  <section id="sec-uso" class="solo-tec" hidden>
     <h2>Uso de IA y procesamiento <span id="uso-fuente" class="muted small"></span></h2>
     <div class="kpis kpis-metricas" id="kpis-uso"></div>
     <div class="paneles">
@@ -63,10 +69,10 @@
         <thead><tr>
           <th data-col="capture_id">Identificador</th>
           <th data-col="decision">Decisión</th>
-          <th data-col="_motivo">Motivo</th>
+          <th data-col="_razon">Razón</th>
           <th data-col="precio_detectado" class="num">Precio</th>
-          <th data-col="confidence_score" class="num">Confianza</th>
-          <th data-col="explicacion">Explicación</th>
+          <th data-col="confidence_score" class="num solo-tec">Confianza</th>
+          <th data-col="explicacion" class="solo-tec">Explicación</th>
         </tr></thead>
         <tbody></tbody>
       </table>
@@ -89,8 +95,8 @@
     <div class="det-col"><h3>Validaciones</h3><div id="det-val"></div></div>
   </div>
   <p id="det-expl" class="det-expl"></p>
-  <details id="det-tec" open>
-    <summary>Análisis técnico <span class="muted small">· lo que vio la IA y las señales de cada foto</span></summary>
+  <details id="det-tec">
+    <summary>Ver detalle técnico <span class="muted small">· lo que vio la IA y las señales de cada foto</span></summary>
     <div id="det-tec-cuerpo"></div>
   </details>
 </dialog>

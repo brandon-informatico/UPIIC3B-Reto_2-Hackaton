@@ -95,3 +95,13 @@ img.ampliada{position:fixed;inset:3vh 3vw;width:94vw;height:94vh;object-fit:cont
 @media (max-width:720px){.tec{grid-template-columns:1fr}}
 #graf-senales .hbar{grid-template-columns:230px 1fr 34px}
 @media (max-width:720px){#graf-senales .hbar{grid-template-columns:150px 1fr 34px}}
+
+/* ---- vista ejecutiva (por defecto) / vista técnica ---- */
+body:not(.tecnica) .solo-tec{display:none !important}
+#btn-tecnica[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.kpis-cumple{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.kpis-cumple .v{font-size:34px}
+.panel-razones{margin-top:12px}
+#graf-motivos .hbar{grid-template-columns:minmax(180px,280px) 1fr 40px;font-size:14px;margin:8px 0}
+.razon{color:var(--ink)}
+.estado-neutro{background:var(--line);color:var(--muted)}
