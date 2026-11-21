@@ -1,12 +1,14 @@
 # Cómo trabajamos — Validat3B
 
+> Antes de programar lee **[CONTEXT.md](CONTEXT.md)**: reglas, nombres y contratos que todos (y sus IA) seguimos.
+
 ## Roles y ramas
 
 | Integrante | Área | Carpeta(s) | Rama |
 |---|---|---|---|
-| Pat | Motor e integración | `src/motor/`, `src/pipeline.py` | `feat/motor` |
+| Pat | Motor e integración | `src/motor/`, `src/pipeline.py`, `src/contratos.py` | `feat/motor` |
 | Brandon | IA y Azure AI Foundry | `src/ia/` | `feat/ia-foundry` |
-| Armando | Dashboard | `dashboard/` | `feat/dashboard` |
+| Armando | Dashboard y sitio | `dashboard/`, `web/` | `feat/dashboard` |
 | Copka | Carga y limpieza | `src/datos/` | `feat/datos` |
 | Ale | Evaluación y métricas | `evaluacion/` | `feat/evaluacion` |
 
@@ -16,8 +18,8 @@
 feat/*  ──PR──▶  develop  ──PR──▶  main
 ```
 
-- **`main`**: versión estable para la demo. Protegida: solo entra por Pull Request desde `develop`.
-- **`develop`**: integración. Protegida: solo entra por Pull Request. Pat integra.
+- **`main`**: versión estable para la demo. Por acuerdo del equipo, solo entra por Pull Request desde `develop` (GitHub Free no permite bloquearlo en repos privados: respétalo tú).
+- **`develop`**: integración. Por acuerdo del equipo, solo entra por Pull Request. Pat integra.
 - **`feat/*`**: rama de cada integrante. Aquí sí haces push directo.
 
 ## Paso a paso (primera vez)
@@ -26,6 +28,7 @@ feat/*  ──PR──▶  develop  ──PR──▶  main
 git clone https://github.com/brandon-informatico/UPIIC3B-Reto_2-Hackaton.git
 cd UPIIC3B-Reto_2-Hackaton
 git switch feat/TU-RAMA          # ej. feat/datos
+python scripts/descargar_datos.py   # datos oficiales a data/ (no se suben)
 ```
 
 ## Ciclo de trabajo

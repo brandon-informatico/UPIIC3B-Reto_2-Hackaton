@@ -12,7 +12,8 @@ Programa que revisa automáticamente cada captura (datos + 3 fotos: fachada, pro
 ```bash
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-cp .env.example .env   # llena tus credenciales (no se sube)
+cp .env.example .env   # pon tu FOUNDRY_API_KEY (no se sube)
+python scripts/descargar_datos.py   # baja los datos oficiales a data/ (no se suben)
 ```
 
 ### Ejecución
@@ -35,7 +36,8 @@ ejemplos/      datos ficticios
 web/           sitio público (Cloudflare Pages)
 ```
 
-Roles, ramas y flujo de trabajo: ver [CONTRIBUTING.md](CONTRIBUTING.md).
+**Reglas, nombres y contratos (obligatorio, también para asistentes de IA):** [CONTEXT.md](CONTEXT.md).
+Roles, ramas y flujo de trabajo: [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ### Sitio web (Cloudflare Pages)
 

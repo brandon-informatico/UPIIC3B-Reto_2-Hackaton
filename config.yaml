@@ -1,5 +1,7 @@
-# Configuración del proyecto Validat3B
+# Configuración del proyecto Validat3B (rutas relativas a la raíz del repo)
 rutas:
-  datos: data/            # capturas.json + imagenes/ (local, no se sube)
-  resultados: resultados/ # salidas generadas (local, no se sube)
-  cache: cache/           # caché de respuestas de IA (local, no se sube)
+  capturas: data/capturas.json
+  catalogo: data/catalogo_productos.csv
+  imagenes: data/                     # las rutas imagenes/... de cada captura son relativas a data/
+  salida: resultados/resultados.json
+  cache: cache/

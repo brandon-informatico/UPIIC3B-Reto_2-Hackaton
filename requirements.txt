@@ -1,4 +1,4 @@
-# Dependencias Python del proyecto (una por línea, con versión cuando se pueda).
-# Cada integrante agrega aquí lo que necesite su módulo.
+# Dependencias Python del proyecto. Agrega aquí las de tu módulo en el mismo PR.
+anthropic
 pyyaml
 python-dotenv
