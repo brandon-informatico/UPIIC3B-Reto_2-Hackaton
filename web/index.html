@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Validat3B · UPIIC3B</title>
+<meta name="description" content="Validat3B: validación automática de capturas de precios con IA. Reto 2 del Hackatón 3B, equipo UPIIC3B.">
+<style>
+  :root{--bg:#f7f7f5;--card:#fff;--ink:#1b1d21;--muted:#5d6470;--line:#e3e4e8;--accent:#d9262b;--ok:#1f8a4c;--warn:#b7791f;--bad:#c53030}
+  @media (prefers-color-scheme:dark){:root{--bg:#121316;--card:#1b1d22;--ink:#eceef2;--muted:#9aa1ad;--line:#2b2e35;--accent:#ff5a5f;--ok:#48bb78;--warn:#ecc94b;--bad:#fc8181}}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  main{max-width:880px;margin:0 auto;padding:48px 16px 64px}
+  .tag{display:inline-block;font-size:13px;font-weight:600;color:var(--accent);letter-spacing:.04em;text-transform:uppercase}
+  h1{font-size:clamp(34px,6vw,52px);line-height:1.1;margin:8px 0 12px}
+  h2{font-size:20px;margin:40px 0 14px}
+  p.lead{font-size:18px;color:var(--muted);max-width:640px;margin:0}
+  .grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+  .card b{display:block;margin-bottom:4px}
+  .card span{color:var(--muted);font-size:14px}
+  .d{font-family:ui-monospace,Menlo,monospace;font-weight:700}
+  .ok{color:var(--ok)}.warn{color:var(--warn)}.bad{color:var(--bad)}
+  table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:15px}
+  th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line)}
+  th{color:var(--muted);font-weight:600;font-size:13px}
+  tr:last-child td{border-bottom:0}
+  code{font-family:ui-monospace,Menlo,monospace;font-size:13px}
+  .status{margin-top:20px;display:inline-flex;gap:8px;align-items:center;font-size:14px;color:var(--muted)}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--warn)}
+  footer{margin-top:48px;color:var(--muted);font-size:13px}
+  @media (max-width:520px){th:nth-child(3),td:nth-child(3){display:none}}
+</style>
+</head>
+<body>
+<main>
+  <span class="tag">Hackatón 3B · Reto 2 · Equipo UPIIC3B</span>
+  <h1>Validat3B</h1>
+  <p class="lead">Revisamos automáticamente cada captura de precio de campo —datos y tres fotos— y decidimos si la evidencia es confiable, con una explicación clara.</p>
+  <div class="status"><span class="dot"></span>En construcción</div>
+
+  <h2>Cómo funciona</h2>
+  <div class="grid">
+    <div class="card"><b>1 · Fachada</b><span>¿La foto corresponde a la tienda seleccionada?</span></div>
+    <div class="card"><b>2 · Producto</b><span>¿Es el artículo esperado o un contratipo permitido?</span></div>
+    <div class="card"><b>3 · Etiqueta</b><span>¿Es legible y el precio coincide con el registrado?</span></div>
+  </div>
+
+  <h2>Decisiones</h2>
+  <div class="grid">
+    <div class="card"><span class="d ok">aprobada</span><br><span>La evidencia es suficiente y cumple las reglas.</span></div>
+    <div class="card"><span class="d bad">rechazada</span><br><span>Hay evidencia clara de que incumple una regla.</span></div>
+    <div class="card"><span class="d warn">revision_manual</span><br><span>Hay dudas o información insuficiente.</span></div>
+  </div>
+
+  <h2>Equipo</h2>
+  <table>
+    <tr><th>Integrante</th><th>Área</th><th>Módulo</th></tr>
+    <tr><td>Pat</td><td>Motor e integración</td><td><code>src/motor</code></td></tr>
+    <tr><td>Brandon</td><td>IA y Azure AI Foundry</td><td><code>src/ia</code></td></tr>
+    <tr><td>Armando</td><td>Dashboard</td><td><code>dashboard</code></td></tr>
+    <tr><td>Copka</td><td>Carga y limpieza</td><td><code>src/datos</code></td></tr>
+    <tr><td>Ale</td><td>Evaluación y métricas</td><td><code>evaluacion</code></td></tr>
+  </table>
+
+  <footer>UPIIC3B · Hackatón 3B 2026</footer>
+</main>
+</body>
+</html>

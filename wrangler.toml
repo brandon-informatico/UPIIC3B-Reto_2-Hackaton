@@ -1,0 +1,4 @@
+# Cloudflare Pages — sitio web del equipo (https://upiic3b.pages.dev)
+name = "upiic3b"
+pages_build_output_dir = "web"
+compatibility_date = "2026-11-21"
