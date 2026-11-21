@@ -1,0 +1,702 @@
+[
+  {
+    "capture_id": "CAP-800001",
+    "capture_store_name": "Soriana",
+    "product_name": "Café soluble 120 g",
+    "capture_price": 67.4,
+    "capture_barcode": "7506958483040"
+  },
+  {
+    "capture_id": "CAP-800002",
+    "capture_store_name": "Chedraui",
+    "product_name": "Galletas María 170 g",
+    "capture_price": 15.5,
+    "capture_barcode": "7502055526678"
+  },
+  {
+    "capture_id": "CAP-800003",
+    "capture_store_name": "Bara",
+    "product_name": "Arroz 1 kg",
+    "capture_price": 28.9,
+    "capture_barcode": "7503464848506"
+  },
+  {
+    "capture_id": "CAP-800004",
+    "capture_store_name": "Bara",
+    "product_name": "Papel higiénico 4 rollos",
+    "capture_price": 30.3,
+    "capture_barcode": "7505755947090"
+  },
+  {
+    "capture_id": "CAP-800005",
+    "capture_store_name": "Walmart",
+    "product_name": "Detergente en polvo 1 kg",
+    "capture_price": 37.0,
+    "capture_barcode": "7505252559446"
+  },
+  {
+    "capture_id": "CAP-800006",
+    "capture_store_name": "Chedraui",
+    "product_name": "Leche entera 1 L",
+    "capture_price": 28.6,
+    "capture_barcode": "7503526119553"
+  },
+  {
+    "capture_id": "CAP-800007",
+    "capture_store_name": "Neto",
+    "product_name": "Aceite vegetal 1 L",
+    "capture_price": 46.1,
+    "capture_barcode": "7509743108359"
+  },
+  {
+    "capture_id": "CAP-800008",
+    "capture_store_name": "Walmart",
+    "product_name": "Papel higiénico 4 rollos",
+    "capture_price": 29.9,
+    "capture_barcode": "7505926484756"
+  },
+  {
+    "capture_id": "CAP-800009",
+    "capture_store_name": "Walmart",
+    "product_name": "Leche entera 1 L",
+    "capture_price": 24.2,
+    "capture_barcode": "7508683078485"
+  },
+  {
+    "capture_id": "CAP-800010",
+    "capture_store_name": "Bara",
+    "product_name": "Leche entera 1 L",
+    "capture_price": 24.5,
+    "capture_barcode": "7508369007128"
+  },
+  {
+    "capture_id": "CAP-800011",
+    "capture_store_name": "Walmart",
+    "product_name": "Galletas María 170 g",
+    "capture_price": 14.5,
+    "capture_barcode": "7501524870533"
+  },
+  {
+    "capture_id": "CAP-800012",
+    "capture_store_name": "Neto",
+    "product_name": "Frijol negro 900 g",
+    "capture_price": 39.0,
+    "capture_barcode": "7500796043498"
+  },
+  {
+    "capture_id": "CAP-800013",
+    "capture_store_name": "Soriana",
+    "product_name": "Atún en agua 140 g",
+    "capture_price": 20.2,
+    "capture_barcode": "7501017018875"
+  },
+  {
+    "capture_id": "CAP-800014",
+    "capture_store_name": "Chedraui",
+    "product_name": "Galletas María 170 g",
+    "capture_price": 16.6,
+    "capture_barcode": "7504356128061"
+  },
+  {
+    "capture_id": "CAP-800015",
+    "capture_store_name": "Soriana",
+    "product_name": "Arroz 1 kg",
+    "capture_price": 29.8,
+    "capture_barcode": "7509605756670"
+  },
+  {
+    "capture_id": "CAP-800016",
+    "capture_store_name": "Soriana",
+    "product_name": "Leche entera 1 L",
+    "capture_price": 27.1,
+    "capture_barcode": "7505584171861"
+  },
+  {
+    "capture_id": "CAP-800017",
+    "capture_store_name": "Neto",
+    "product_name": "Sardina en tomate 425 g",
+    "capture_price": 24.3,
+    "capture_barcode": "7503608191620"
+  },
+  {
+    "capture_id": "CAP-800018",
+    "capture_store_name": "Chedraui",
+    "product_name": "Detergente en polvo 1 kg",
+    "capture_price": 42.1,
+    "capture_barcode": "7509410988318"
+  },
+  {
+    "capture_id": "CAP-800019",
+    "capture_store_name": "Soriana",
+    "product_name": "Café soluble 120 g",
+    "capture_price": 60.5,
+    "capture_barcode": "7503237964596"
+  },
+  {
+    "capture_id": "CAP-800020",
+    "capture_store_name": "Bodega Aurrera",
+    "product_name": "Leche entera 1 L",
+    "capture_price": 30.8,
+    "capture_barcode": "7502699872622"
+  },
+  {
+    "capture_id": "CAP-800021",
+    "capture_store_name": "Neto",
+    "product_name": "Detergente en polvo 1 kg",
+    "capture_price": 39.8,
+    "capture_barcode": "7502432985384"
+  },
+  {
+    "capture_id": "CAP-800022",
+    "capture_store_name": "Bodega Aurrera",
+    "product_name": "Frijol negro 900 g",
+    "capture_price": 31.2,
+    "capture_barcode": "7506329535726"
+  },
+  {
+    "capture_id": "CAP-800023",
+    "capture_store_name": "Bodega Aurrera",
+    "product_name": "Papel higiénico 4 rollos",
+    "capture_price": 33.8,
+    "capture_barcode": "7501607331343"
+  },
+  {
+    "capture_id": "CAP-800024",
+    "capture_store_name": "Soriana",
+    "product_name": "Sardina en tomate 425 g",
+    "capture_price": 28.9,
+    "capture_barcode": "7504205261111"
+  },
+  {
+    "capture_id": "CAP-800025",
+    "capture_store_name": "Soriana",
+    "product_name": "Sardina en tomate 425 g",
+    "capture_price": 28.9,
+    "capture_barcode": "7500556671397"
+  },
+  {
+    "capture_id": "CAP-800026",
+    "capture_store_name": "Bodega Aurrera",
+    "product_name": "Papel higiénico 4 rollos",
+    "capture_price": 32.8,
+    "capture_barcode": "7508418557441"
+  },
+  {
+    "capture_id": "CAP-800027",
+    "capture_store_name": "Walmart",
+    "product_name": "Pasta moñito 200 g",
+    "capture_price": 11.7,
+    "capture_barcode": "7505049222571"
+  },
+  {
+    "capture_id": "CAP-800028",
+    "capture_store_name": "Walmart",
+    "product_name": "Papel higiénico 4 rollos",
+    "capture_price": 34.1,
+    "capture_barcode": "7504277421128"
+  },
+  {
+    "capture_id": "CAP-800029",
+    "capture_store_name": "Soriana",
+    "product_name": "Frijol negro 900 g",
+    "capture_price": 33.4,
+    "capture_barcode": "7502078438556"
+  },
+  {
+    "capture_id": "CAP-800030",
+    "capture_store_name": "Walmart",
+    "product_name": "Pasta moñito 200 g",
+    "capture_price": 10.3,
+    "capture_barcode": "7501191239662"
+  },
+  {
+    "capture_id": "CAP-800031",
+    "capture_store_name": "Walmart",
+    "product_name": "Arroz 1 kg",
+    "capture_price": 30.9,
+    "capture_barcode": "7502345407665"
+  },
+  {
+    "capture_id": "CAP-800032",
+    "capture_store_name": "Bara",
+    "product_name": "Papel higiénico 4 rollos",
+    "capture_price": 35.0,
+    "capture_barcode": "7507093013728"
+  },
+  {
+    "capture_id": "CAP-800033",
+    "capture_store_name": "Bodega Aurrera",
+    "product_name": "Arroz 1 kg",
+    "capture_price": 33.8,
+    "capture_barcode": "7501942271900"
+  },
+  {
+    "capture_id": "CAP-800034",
+    "capture_store_name": "Chedraui",
+    "product_name": "Arroz 1 kg",
+    "capture_price": 27.1,
+    "capture_barcode": "7505552190153"
+  },
+  {
+    "capture_id": "CAP-800035",
+    "capture_store_name": "Soriana",
+    "product_name": "Leche entera 1 L",
+    "capture_price": 27.5,
+    "capture_barcode": "7500613267718"
+  },
+  {
+    "capture_id": "CAP-800036",
+    "capture_store_name": "Bodega Aurrera",
+    "product_name": "Detergente en polvo 1 kg",
+    "capture_price": 41.4,
+    "capture_barcode": "7507270455785"
+  },
+  {
+    "capture_id": "CAP-800037",
+    "capture_store_name": "Chedraui",
+    "product_name": "Leche entera 1 L",
+    "capture_price": 25.9,
+    "capture_barcode": "7502783230296"
+  },
+  {
+    "capture_id": "CAP-800038",
+    "capture_store_name": "Bodega Aurrera",
+    "product_name": "Café soluble 120 g",
+    "capture_price": 60.3,
+    "capture_barcode": "7502006756003"
+  },
+  {
+    "capture_id": "CAP-800039",
+    "capture_store_name": "Bodega Aurrera",
+    "product_name": "Leche entera 1 L",
+    "capture_price": 25.8,
+    "capture_barcode": "7507325915190"
+  },
+  {
+    "capture_id": "CAP-800040",
+    "capture_store_name": "Walmart",
+    "product_name": "Frijol negro 900 g",
+    "capture_price": 35.3,
+    "capture_barcode": "7504055510619"
+  },
+  {
+    "capture_id": "CAP-800041",
+    "capture_store_name": "Soriana",
+    "product_name": "Arroz 1 kg",
+    "capture_price": 27.2,
+    "capture_barcode": "7503853757506"
+  },
+  {
+    "capture_id": "CAP-800042",
+    "capture_store_name": "Neto",
+    "product_name": "Pasta moñito 200 g",
+    "capture_price": 12.5,
+    "capture_barcode": "7506186858626"
+  },
+  {
+    "capture_id": "CAP-800043",
+    "capture_store_name": "Bodega Aurrera",
+    "product_name": "Galletas María 170 g",
+    "capture_price": 16.1,
+    "capture_barcode": "7507542896702"
+  },
+  {
+    "capture_id": "CAP-800044",
+    "capture_store_name": "Soriana",
+    "product_name": "Sardina en tomate 425 g",
+    "capture_price": 28.9,
+    "capture_barcode": "7505390907755"
+  },
+  {
+    "capture_id": "CAP-800045",
+    "capture_store_name": "Chedraui",
+    "product_name": "Pasta moñito 200 g",
+    "capture_price": 10.8,
+    "capture_barcode": "7501713302290"
+  },
+  {
+    "capture_id": "CAP-800046",
+    "capture_store_name": "Walmart",
+    "product_name": "Arroz 1 kg",
+    "capture_price": 30.8,
+    "capture_barcode": "7509583729101"
+  },
+  {
+    "capture_id": "CAP-800047",
+    "capture_store_name": "Bodega Aurrera",
+    "product_name": "Frijol negro 900 g",
+    "capture_price": 31.8,
+    "capture_barcode": "7506391756971"
+  },
+  {
+    "capture_id": "CAP-800048",
+    "capture_store_name": "Bodega Aurrera",
+    "product_name": "Pasta moñito 200 g",
+    "capture_price": 11.4,
+    "capture_barcode": "7504155371856"
+  },
+  {
+    "capture_id": "CAP-800049",
+    "capture_store_name": "Bodega Aurrera",
+    "product_name": "Atún en agua 140 g",
+    "capture_price": 18.2,
+    "capture_barcode": "7507143523397"
+  },
+  {
+    "capture_id": "CAP-800050",
+    "capture_store_name": "Bodega Aurrera",
+    "product_name": "Leche entera 1 L",
+    "capture_price": 30.3,
+    "capture_barcode": "7507679040210"
+  },
+  {
+    "capture_id": "CAP-800051",
+    "capture_store_name": "Neto",
+    "product_name": "Atún en agua 140 g",
+    "capture_price": 17.6,
+    "capture_barcode": "7504760573421"
+  },
+  {
+    "capture_id": "CAP-800052",
+    "capture_store_name": "Bara",
+    "product_name": "Leche entera 1 L",
+    "capture_price": 25.2,
+    "capture_barcode": "7504652647788"
+  },
+  {
+    "capture_id": "CAP-800053",
+    "capture_store_name": "Chedraui",
+    "product_name": "Atún en agua 140 g",
+    "capture_price": 18.8,
+    "capture_barcode": "7504380028280"
+  },
+  {
+    "capture_id": "CAP-800054",
+    "capture_store_name": "Chedraui",
+    "product_name": "Detergente en polvo 1 kg",
+    "capture_price": 37.6,
+    "capture_barcode": "7508072304650"
+  },
+  {
+    "capture_id": "CAP-800055",
+    "capture_store_name": "Bodega Aurrera",
+    "product_name": "Frijol negro 900 g",
+    "capture_price": 33.2,
+    "capture_barcode": "7506450060293"
+  },
+  {
+    "capture_id": "CAP-800056",
+    "capture_store_name": "Chedraui",
+    "product_name": "Aceite vegetal 1 L",
+    "capture_price": 44.1,
+    "capture_barcode": "7500200707789"
+  },
+  {
+    "capture_id": "CAP-800057",
+    "capture_store_name": "Bara",
+    "product_name": "Frijol negro 900 g",
+    "capture_price": 32.6,
+    "capture_barcode": "7502816577447"
+  },
+  {
+    "capture_id": "CAP-800058",
+    "capture_store_name": "Neto",
+    "product_name": "Atún en agua 140 g",
+    "capture_price": 18.6,
+    "capture_barcode": "7507994059981"
+  },
+  {
+    "capture_id": "CAP-800059",
+    "capture_store_name": "Soriana",
+    "product_name": "Papel higiénico 4 rollos",
+    "capture_price": 29.9,
+    "capture_barcode": "7508773452665"
+  },
+  {
+    "capture_id": "CAP-800060",
+    "capture_store_name": "Bodega Aurrera",
+    "product_name": "Aceite vegetal 1 L",
+    "capture_price": 41.6,
+    "capture_barcode": "7508402646173"
+  },
+  {
+    "capture_id": "CAP-800061",
+    "capture_store_name": "Soriana",
+    "product_name": "Pasta moñito 200 g",
+    "capture_price": 11.6,
+    "capture_barcode": "7504164774488"
+  },
+  {
+    "capture_id": "CAP-800062",
+    "capture_store_name": "Bodega Aurrera",
+    "product_name": "Sardina en tomate 425 g",
+    "capture_price": 25.5,
+    "capture_barcode": "7506026022432"
+  },
+  {
+    "capture_id": "CAP-800063",
+    "capture_store_name": "Bodega Aurrera",
+    "product_name": "Galletas María 170 g",
+    "capture_price": 17.4,
+    "capture_barcode": "7506204121242"
+  },
+  {
+    "capture_id": "CAP-800064",
+    "capture_store_name": "Chedraui",
+    "product_name": "Leche entera 1 L",
+    "capture_price": 24.3,
+    "capture_barcode": "7502731587157"
+  },
+  {
+    "capture_id": "CAP-800065",
+    "capture_store_name": "Walmart",
+    "product_name": "Café soluble 120 g",
+    "capture_price": 64.1,
+    "capture_barcode": "7508472876394"
+  },
+  {
+    "capture_id": "CAP-800066",
+    "capture_store_name": "Neto",
+    "product_name": "Pasta estrella 200 g",
+    "capture_price": 10.8,
+    "capture_barcode": "7502090692190"
+  },
+  {
+    "capture_id": "CAP-800067",
+    "capture_store_name": "Bara",
+    "product_name": "Papel higiénico 4 rollos",
+    "capture_price": 32.3,
+    "capture_barcode": "7504178975299"
+  },
+  {
+    "capture_id": "CAP-800068",
+    "capture_store_name": "Walmart",
+    "product_name": "Café soluble 120 g",
+    "capture_price": 63.3,
+    "capture_barcode": "7505544421983"
+  },
+  {
+    "capture_id": "CAP-800069",
+    "capture_store_name": "Bodega Aurrera",
+    "product_name": "Frijol negro 900 g",
+    "capture_price": 35.0,
+    "capture_barcode": "7505829887901"
+  },
+  {
+    "capture_id": "CAP-800070",
+    "capture_store_name": "Bodega Aurrera",
+    "product_name": "Leche entera 1 L",
+    "capture_price": 30.0,
+    "capture_barcode": "7503158308716"
+  },
+  {
+    "capture_id": "CAP-800071",
+    "capture_store_name": "Bodega Aurrera",
+    "product_name": "Aceite vegetal 1 L",
+    "capture_price": 43.6,
+    "capture_barcode": "7507519725305"
+  },
+  {
+    "capture_id": "CAP-800072",
+    "capture_store_name": "Chedraui",
+    "product_name": "Leche entera 1 L",
+    "capture_price": 26.4,
+    "capture_barcode": "7503008587537"
+  },
+  {
+    "capture_id": "CAP-800073",
+    "capture_store_name": "Chedraui",
+    "product_name": "Pasta estrella 200 g",
+    "capture_price": 12.3,
+    "capture_barcode": "7508312916056"
+  },
+  {
+    "capture_id": "CAP-800074",
+    "capture_store_name": "Walmart",
+    "product_name": "Pasta estrella 200 g",
+    "capture_price": 11.0,
+    "capture_barcode": "7506946411175"
+  },
+  {
+    "capture_id": "CAP-800075",
+    "capture_store_name": "Chedraui",
+    "product_name": "Pasta moñito 200 g",
+    "capture_price": 12.2,
+    "capture_barcode": "7506935361080"
+  },
+  {
+    "capture_id": "CAP-800076",
+    "capture_store_name": "Bodega Aurrera",
+    "product_name": "Pasta moñito 200 g",
+    "capture_price": 10.4,
+    "capture_barcode": "7508645783394"
+  },
+  {
+    "capture_id": "CAP-800077",
+    "capture_store_name": "Walmart",
+    "product_name": "Aceite vegetal 1 L",
+    "capture_price": 41.6,
+    "capture_barcode": "7508370643732"
+  },
+  {
+    "capture_id": "CAP-800078",
+    "capture_store_name": "Chedraui",
+    "product_name": "Galletas María 170 g",
+    "capture_price": 17.7,
+    "capture_barcode": "7502057360365"
+  },
+  {
+    "capture_id": "CAP-800079",
+    "capture_store_name": "Chedraui",
+    "product_name": "Frijol negro 900 g",
+    "capture_price": 31.5,
+    "capture_barcode": "7501334729237"
+  },
+  {
+    "capture_id": "CAP-800080",
+    "capture_store_name": "Walmart",
+    "product_name": "Pasta estrella 200 g",
+    "capture_price": 11.8,
+    "capture_barcode": "7506986924750"
+  },
+  {
+    "capture_id": "CAP-800081",
+    "capture_store_name": "Walmart",
+    "product_name": "Café soluble 120 g",
+    "capture_price": 60.4,
+    "capture_barcode": "7506736875697"
+  },
+  {
+    "capture_id": "CAP-800082",
+    "capture_store_name": "Soriana",
+    "product_name": "Pasta estrella 200 g",
+    "capture_price": 11.5,
+    "capture_barcode": "7505824782757"
+  },
+  {
+    "capture_id": "CAP-800083",
+    "capture_store_name": "Walmart",
+    "product_name": "Sardina en tomate 425 g",
+    "capture_price": 29.4,
+    "capture_barcode": "7509494856406"
+  },
+  {
+    "capture_id": "CAP-800084",
+    "capture_store_name": "Neto",
+    "product_name": "Aceite vegetal 1 L",
+    "capture_price": 44.3,
+    "capture_barcode": "7504396158257"
+  },
+  {
+    "capture_id": "CAP-800085",
+    "capture_store_name": "Chedraui",
+    "product_name": "Galletas María 170 g",
+    "capture_price": 16.5,
+    "capture_barcode": "7501097328211"
+  },
+  {
+    "capture_id": "CAP-800086",
+    "capture_store_name": "Bodega Aurrera",
+    "product_name": "Arroz 1 kg",
+    "capture_price": 30.8,
+    "capture_barcode": "7504174534131"
+  },
+  {
+    "capture_id": "CAP-800087",
+    "capture_store_name": "Walmart",
+    "product_name": "Papel higiénico 4 rollos",
+    "capture_price": 30.8,
+    "capture_barcode": "7508333455112"
+  },
+  {
+    "capture_id": "CAP-800088",
+    "capture_store_name": "Neto",
+    "product_name": "Aceite vegetal 1 L",
+    "capture_price": 47.1,
+    "capture_barcode": "7502074825768"
+  },
+  {
+    "capture_id": "CAP-800089",
+    "capture_store_name": "Bodega Aurrera",
+    "product_name": "Arroz 1 kg",
+    "capture_price": 28.9,
+    "capture_barcode": "7502002603283"
+  },
+  {
+    "capture_id": "CAP-800090",
+    "capture_store_name": "Bara",
+    "product_name": "Papel higiénico 4 rollos",
+    "capture_price": 33.8,
+    "capture_barcode": "7505312317642"
+  },
+  {
+    "capture_id": "CAP-800091",
+    "capture_store_name": "Bara",
+    "product_name": "Pasta moñito 200 g",
+    "capture_price": 11.6,
+    "capture_barcode": "7502101867897"
+  },
+  {
+    "capture_id": "CAP-800092",
+    "capture_store_name": "Bodega Aurrera",
+    "product_name": "Frijol negro 900 g",
+    "capture_price": 36.9,
+    "capture_barcode": "7502005855103"
+  },
+  {
+    "capture_id": "CAP-800093",
+    "capture_store_name": "Neto",
+    "product_name": "Sardina en tomate 425 g",
+    "capture_price": 26.5,
+    "capture_barcode": "7507730533266"
+  },
+  {
+    "capture_id": "CAP-800094",
+    "capture_store_name": "Soriana",
+    "product_name": "Café soluble 120 g",
+    "capture_price": 61.5,
+    "capture_barcode": "7500609533798"
+  },
+  {
+    "capture_id": "CAP-800095",
+    "capture_store_name": "Walmart",
+    "product_name": "Sardina en tomate 425 g",
+    "capture_price": 25.7,
+    "capture_barcode": "7506412788149"
+  },
+  {
+    "capture_id": "CAP-800096",
+    "capture_store_name": "Chedraui",
+    "product_name": "Arroz 1 kg",
+    "capture_price": 28.2,
+    "capture_barcode": "7508411717360"
+  },
+  {
+    "capture_id": "CAP-800097",
+    "capture_store_name": "Soriana",
+    "product_name": "Detergente en polvo 1 kg",
+    "capture_price": 42.8,
+    "capture_barcode": "7505447744249"
+  },
+  {
+    "capture_id": "CAP-800098",
+    "capture_store_name": "Soriana",
+    "product_name": "Papel higiénico 4 rollos",
+    "capture_price": 30.8,
+    "capture_barcode": "7502688221488"
+  },
+  {
+    "capture_id": "CAP-800099",
+    "capture_store_name": "Chedraui",
+    "product_name": "Galletas María 170 g",
+    "capture_price": 17.0,
+    "capture_barcode": "7508667590547"
+  },
+  {
+    "capture_id": "CAP-800100",
+    "capture_store_name": "Bara",
+    "product_name": "Leche entera 1 L",
+    "capture_price": 26.6,
+    "capture_barcode": "7504767359039"
+  }
+]
