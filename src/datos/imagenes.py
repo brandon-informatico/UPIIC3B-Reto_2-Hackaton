@@ -25,6 +25,7 @@ import numpy as np
 from typing import get_args
 
 from contratos import TipoFoto
+from src.archivos import nombre_archivo
 
 TIPOS_IMAGEN: tuple[str, ...] = get_args(TipoFoto)  # ("facade", "product", "shelf"), definido en contratos/
 
@@ -236,7 +237,7 @@ def _procesar_foto(ruta: Path, tipo: str, capture_id: str, ruta_cache: Path,
             return {**previa, "repetida": True}, _reducir(original, parametros["lado_max"][tipo])
     reducida = _reducir(original, parametros["lado_max"][tipo])
     para_modelo = _emparejar_luz(reducida, parametros["clahe"][tipo])
-    nombre = f"{clave}.jpg" if clave else f"{capture_id}_{tipo}.jpg"
+    nombre = f"{clave}.jpg" if clave else f"{nombre_archivo(capture_id)}_{tipo}.jpg"
     destino = ruta_cache / "normalizadas" / tipo / nombre
     _guardar_jpeg(para_modelo, destino, parametros["calidad_jpeg"])
     alto, ancho = para_modelo.shape[:2]

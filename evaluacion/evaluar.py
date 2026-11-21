@@ -32,6 +32,7 @@ from pydantic import ValidationError
 from contratos.contratos import RegistroSalida
 from evaluacion import costo
 from evaluacion.reporte import imprimir
+from src.archivos import nombre_archivo
 
 LOG = logging.getLogger("evaluacion")
 RAIZ = Path(__file__).resolve().parents[1]
@@ -90,7 +91,7 @@ def _tokens(resultados: list[dict], log: dict[str, dict]) -> tuple[dict, dict]:
     for registro in resultados:
         cid = registro.get("capture_id")
         fila = log.get(cid, {})
-        uso = fila.get("uso_ia") or (_leer_json(RAIZ / "cache" / "ia" / f"{cid}.json", {}) or {}).get("uso_ia") or {}
+        uso = fila.get("uso_ia") or (_leer_json(RAIZ / "cache" / "ia" / f"{nombre_archivo(cid)}.json", {}) or {}).get("uso_ia") or {}
         llamo = fila.get("llamo_ia", bool(uso)) if fila else bool(uso)
         if llamo:
             llamadas += 1
