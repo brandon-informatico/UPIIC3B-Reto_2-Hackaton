@@ -1,0 +1,1502 @@
+[
+  {
+    "capture_id": "CAP-800001",
+    "decision": "rechazada",
+    "confidence_score": 0.917,
+    "reason_code": "CAPTURA_LEJANA",
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "falla",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 67.4,
+    "codigo_barras_detectado": null,
+    "explicacion": "El producto aparece entre muchos en el anaquel; no se puede ligar a la etiqueta."
+  },
+  {
+    "capture_id": "CAP-800002",
+    "decision": "rechazada",
+    "confidence_score": 0.942,
+    "reason_code": "IMAGEN_BORROSA",
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "falla"
+    },
+    "precio_detectado": null,
+    "codigo_barras_detectado": null,
+    "explicacion": "La etiqueta está desenfocada y el precio no es legible."
+  },
+  {
+    "capture_id": "CAP-800003",
+    "decision": "revision_manual",
+    "confidence_score": 0.696,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "falla"
+    },
+    "precio_detectado": 40.5,
+    "codigo_barras_detectado": null,
+    "explicacion": "El precio de la etiqueta difiere del capturado."
+  },
+  {
+    "capture_id": "CAP-800004",
+    "decision": "revision_manual",
+    "confidence_score": 0.521,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 30.3,
+    "codigo_barras_detectado": null,
+    "explicacion": "La evidencia se ve bien pero la confianza no alcanza para aprobar."
+  },
+  {
+    "capture_id": "CAP-800005",
+    "decision": "revision_manual",
+    "confidence_score": 0.549,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "falla",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 37.0,
+    "codigo_barras_detectado": null,
+    "explicacion": "No se puede confirmar la presentación del producto (g vs ml)."
+  },
+  {
+    "capture_id": "CAP-800006",
+    "decision": "aprobada",
+    "confidence_score": 0.924,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 28.6,
+    "codigo_barras_detectado": null,
+    "explicacion": "Producto, etiqueta y precio coinciden con lo esperado."
+  },
+  {
+    "capture_id": "CAP-800007",
+    "decision": "aprobada",
+    "confidence_score": 0.975,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 46.1,
+    "codigo_barras_detectado": null,
+    "explicacion": "Producto, etiqueta y precio coinciden con lo esperado."
+  },
+  {
+    "capture_id": "CAP-800008",
+    "decision": "rechazada",
+    "confidence_score": 0.858,
+    "reason_code": "CAPTURA_LEJANA",
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "falla",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 29.9,
+    "codigo_barras_detectado": null,
+    "explicacion": "El producto aparece entre muchos en el anaquel; no se puede ligar a la etiqueta."
+  },
+  {
+    "capture_id": "CAP-800009",
+    "decision": "revision_manual",
+    "confidence_score": 0.542,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 24.2,
+    "codigo_barras_detectado": null,
+    "explicacion": "La evidencia se ve bien pero la confianza no alcanza para aprobar."
+  },
+  {
+    "capture_id": "CAP-800010",
+    "decision": "aprobada",
+    "confidence_score": 0.952,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 24.5,
+    "codigo_barras_detectado": null,
+    "explicacion": "Producto, etiqueta y precio coinciden con lo esperado."
+  },
+  {
+    "capture_id": "CAP-800011",
+    "decision": "revision_manual",
+    "confidence_score": 0.518,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "falla"
+    },
+    "precio_detectado": 14.5,
+    "codigo_barras_detectado": null,
+    "explicacion": "La etiqueta muestra precio regular y de oferta; requiere revisión."
+  },
+  {
+    "capture_id": "CAP-800012",
+    "decision": "rechazada",
+    "confidence_score": 0.749,
+    "reason_code": "CAPTURA_LEJANA",
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "falla",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 39.0,
+    "codigo_barras_detectado": null,
+    "explicacion": "El producto aparece entre muchos en el anaquel; no se puede ligar a la etiqueta."
+  },
+  {
+    "capture_id": "CAP-800013",
+    "decision": "aprobada",
+    "confidence_score": 0.941,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 20.2,
+    "codigo_barras_detectado": null,
+    "explicacion": "Producto, etiqueta y precio coinciden con lo esperado."
+  },
+  {
+    "capture_id": "CAP-800014",
+    "decision": "rechazada",
+    "confidence_score": 0.794,
+    "reason_code": "CAPTURA_LEJANA",
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "falla",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 16.6,
+    "codigo_barras_detectado": null,
+    "explicacion": "El producto aparece entre muchos en el anaquel; no se puede ligar a la etiqueta."
+  },
+  {
+    "capture_id": "CAP-800015",
+    "decision": "revision_manual",
+    "confidence_score": 0.786,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "falla"
+    },
+    "precio_detectado": 29.8,
+    "codigo_barras_detectado": null,
+    "explicacion": "La etiqueta muestra precio regular y de oferta; requiere revisión."
+  },
+  {
+    "capture_id": "CAP-800016",
+    "decision": "revision_manual",
+    "confidence_score": 0.79,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "falla"
+    },
+    "precio_detectado": 27.1,
+    "codigo_barras_detectado": null,
+    "explicacion": "La etiqueta muestra precio regular y de oferta; requiere revisión."
+  },
+  {
+    "capture_id": "CAP-800017",
+    "decision": "rechazada",
+    "confidence_score": 0.939,
+    "reason_code": "CAPTURA_LEJANA",
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "falla",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 24.3,
+    "codigo_barras_detectado": null,
+    "explicacion": "El producto aparece entre muchos en el anaquel; no se puede ligar a la etiqueta."
+  },
+  {
+    "capture_id": "CAP-800018",
+    "decision": "rechazada",
+    "confidence_score": 0.882,
+    "reason_code": "CAPTURA_LEJANA",
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "falla",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 42.1,
+    "codigo_barras_detectado": null,
+    "explicacion": "El producto aparece entre muchos en el anaquel; no se puede ligar a la etiqueta."
+  },
+  {
+    "capture_id": "CAP-800019",
+    "decision": "revision_manual",
+    "confidence_score": 0.58,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "falla"
+    },
+    "precio_detectado": 60.5,
+    "codigo_barras_detectado": null,
+    "explicacion": "La etiqueta muestra precio regular y de oferta; requiere revisión."
+  },
+  {
+    "capture_id": "CAP-800020",
+    "decision": "rechazada",
+    "confidence_score": 0.83,
+    "reason_code": "PRODUCTO_NO_COINCIDE",
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "falla",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 30.8,
+    "codigo_barras_detectado": null,
+    "explicacion": "El producto de la foto es de otra marca que la esperada."
+  },
+  {
+    "capture_id": "CAP-800021",
+    "decision": "revision_manual",
+    "confidence_score": 0.827,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 39.8,
+    "codigo_barras_detectado": null,
+    "explicacion": "La evidencia se ve bien pero la confianza no alcanza para aprobar."
+  },
+  {
+    "capture_id": "CAP-800022",
+    "decision": "revision_manual",
+    "confidence_score": 0.625,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "falla",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 31.2,
+    "codigo_barras_detectado": null,
+    "explicacion": "No se puede confirmar la presentación del producto (g vs ml)."
+  },
+  {
+    "capture_id": "CAP-800023",
+    "decision": "revision_manual",
+    "confidence_score": 0.51,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "falla",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 33.8,
+    "codigo_barras_detectado": null,
+    "explicacion": "No se puede confirmar la presentación del producto (g vs ml)."
+  },
+  {
+    "capture_id": "CAP-800024",
+    "decision": "rechazada",
+    "confidence_score": 0.848,
+    "reason_code": "CAPTURA_LEJANA",
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "falla",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 28.9,
+    "codigo_barras_detectado": null,
+    "explicacion": "El producto aparece entre muchos en el anaquel; no se puede ligar a la etiqueta."
+  },
+  {
+    "capture_id": "CAP-800025",
+    "decision": "rechazada",
+    "confidence_score": 0.896,
+    "reason_code": "CAPTURA_LEJANA",
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "falla",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 28.9,
+    "codigo_barras_detectado": null,
+    "explicacion": "El producto aparece entre muchos en el anaquel; no se puede ligar a la etiqueta."
+  },
+  {
+    "capture_id": "CAP-800026",
+    "decision": "rechazada",
+    "confidence_score": 0.825,
+    "reason_code": "IMAGEN_BORROSA",
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "falla"
+    },
+    "precio_detectado": null,
+    "codigo_barras_detectado": null,
+    "explicacion": "La etiqueta está desenfocada y el precio no es legible."
+  },
+  {
+    "capture_id": "CAP-800027",
+    "decision": "revision_manual",
+    "confidence_score": 0.71,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 11.7,
+    "codigo_barras_detectado": null,
+    "explicacion": "La evidencia se ve bien pero la confianza no alcanza para aprobar."
+  },
+  {
+    "capture_id": "CAP-800028",
+    "decision": "aprobada",
+    "confidence_score": 0.939,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 34.1,
+    "codigo_barras_detectado": null,
+    "explicacion": "Producto, etiqueta y precio coinciden con lo esperado."
+  },
+  {
+    "capture_id": "CAP-800029",
+    "decision": "rechazada",
+    "confidence_score": 0.836,
+    "reason_code": "CAPTURA_LEJANA",
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "falla",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 33.4,
+    "codigo_barras_detectado": null,
+    "explicacion": "El producto aparece entre muchos en el anaquel; no se puede ligar a la etiqueta."
+  },
+  {
+    "capture_id": "CAP-800030",
+    "decision": "revision_manual",
+    "confidence_score": 0.783,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "falla"
+    },
+    "precio_detectado": 14.4,
+    "codigo_barras_detectado": null,
+    "explicacion": "El precio de la etiqueta difiere del capturado."
+  },
+  {
+    "capture_id": "CAP-800031",
+    "decision": "revision_manual",
+    "confidence_score": 0.869,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "falla"
+    },
+    "precio_detectado": 43.3,
+    "codigo_barras_detectado": null,
+    "explicacion": "El precio de la etiqueta difiere del capturado."
+  },
+  {
+    "capture_id": "CAP-800032",
+    "decision": "revision_manual",
+    "confidence_score": 0.582,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "falla",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 35.0,
+    "codigo_barras_detectado": null,
+    "explicacion": "No se puede confirmar la presentación del producto (g vs ml)."
+  },
+  {
+    "capture_id": "CAP-800033",
+    "decision": "aprobada",
+    "confidence_score": 0.916,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 33.8,
+    "codigo_barras_detectado": null,
+    "explicacion": "Producto, etiqueta y precio coinciden con lo esperado."
+  },
+  {
+    "capture_id": "CAP-800034",
+    "decision": "revision_manual",
+    "confidence_score": 0.736,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "falla"
+    },
+    "precio_detectado": 37.9,
+    "codigo_barras_detectado": null,
+    "explicacion": "El precio de la etiqueta difiere del capturado."
+  },
+  {
+    "capture_id": "CAP-800035",
+    "decision": "rechazada",
+    "confidence_score": 0.964,
+    "reason_code": "IMAGEN_BORROSA",
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "falla"
+    },
+    "precio_detectado": null,
+    "codigo_barras_detectado": null,
+    "explicacion": "La etiqueta está desenfocada y el precio no es legible."
+  },
+  {
+    "capture_id": "CAP-800036",
+    "decision": "aprobada",
+    "confidence_score": 0.91,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 41.4,
+    "codigo_barras_detectado": null,
+    "explicacion": "Producto, etiqueta y precio coinciden con lo esperado."
+  },
+  {
+    "capture_id": "CAP-800037",
+    "decision": "aprobada",
+    "confidence_score": 0.921,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 25.9,
+    "codigo_barras_detectado": null,
+    "explicacion": "Producto, etiqueta y precio coinciden con lo esperado."
+  },
+  {
+    "capture_id": "CAP-800038",
+    "decision": "rechazada",
+    "confidence_score": 0.709,
+    "reason_code": "CAPTURA_LEJANA",
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "falla",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 60.3,
+    "codigo_barras_detectado": null,
+    "explicacion": "El producto aparece entre muchos en el anaquel; no se puede ligar a la etiqueta."
+  },
+  {
+    "capture_id": "CAP-800039",
+    "decision": "revision_manual",
+    "confidence_score": 0.779,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "falla"
+    },
+    "precio_detectado": 36.1,
+    "codigo_barras_detectado": null,
+    "explicacion": "El precio de la etiqueta difiere del capturado."
+  },
+  {
+    "capture_id": "CAP-800040",
+    "decision": "revision_manual",
+    "confidence_score": 0.591,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "falla"
+    },
+    "precio_detectado": 35.3,
+    "codigo_barras_detectado": null,
+    "explicacion": "La etiqueta muestra precio regular y de oferta; requiere revisión."
+  },
+  {
+    "capture_id": "CAP-800041",
+    "decision": "aprobada",
+    "confidence_score": 0.986,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 27.2,
+    "codigo_barras_detectado": null,
+    "explicacion": "Producto, etiqueta y precio coinciden con lo esperado."
+  },
+  {
+    "capture_id": "CAP-800042",
+    "decision": "revision_manual",
+    "confidence_score": 0.574,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "falla",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 12.5,
+    "codigo_barras_detectado": null,
+    "explicacion": "No se puede confirmar la presentación del producto (g vs ml)."
+  },
+  {
+    "capture_id": "CAP-800043",
+    "decision": "revision_manual",
+    "confidence_score": 0.556,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "falla"
+    },
+    "precio_detectado": 22.5,
+    "codigo_barras_detectado": null,
+    "explicacion": "El precio de la etiqueta difiere del capturado."
+  },
+  {
+    "capture_id": "CAP-800044",
+    "decision": "aprobada",
+    "confidence_score": 0.973,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 28.9,
+    "codigo_barras_detectado": null,
+    "explicacion": "Producto, etiqueta y precio coinciden con lo esperado."
+  },
+  {
+    "capture_id": "CAP-800045",
+    "decision": "aprobada",
+    "confidence_score": 0.927,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 10.8,
+    "codigo_barras_detectado": null,
+    "explicacion": "Producto, etiqueta y precio coinciden con lo esperado."
+  },
+  {
+    "capture_id": "CAP-800046",
+    "decision": "revision_manual",
+    "confidence_score": 0.504,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "falla"
+    },
+    "precio_detectado": 30.8,
+    "codigo_barras_detectado": null,
+    "explicacion": "La etiqueta muestra precio regular y de oferta; requiere revisión."
+  },
+  {
+    "capture_id": "CAP-800047",
+    "decision": "rechazada",
+    "confidence_score": 0.868,
+    "reason_code": "CAPTURA_LEJANA",
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "falla",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 31.8,
+    "codigo_barras_detectado": null,
+    "explicacion": "El producto aparece entre muchos en el anaquel; no se puede ligar a la etiqueta."
+  },
+  {
+    "capture_id": "CAP-800048",
+    "decision": "revision_manual",
+    "confidence_score": 0.52,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "falla",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 11.4,
+    "codigo_barras_detectado": null,
+    "explicacion": "No se puede confirmar la presentación del producto (g vs ml)."
+  },
+  {
+    "capture_id": "CAP-800049",
+    "decision": "revision_manual",
+    "confidence_score": 0.577,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "falla"
+    },
+    "precio_detectado": 25.5,
+    "codigo_barras_detectado": null,
+    "explicacion": "El precio de la etiqueta difiere del capturado."
+  },
+  {
+    "capture_id": "CAP-800050",
+    "decision": "revision_manual",
+    "confidence_score": 0.707,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "falla"
+    },
+    "precio_detectado": 30.3,
+    "codigo_barras_detectado": null,
+    "explicacion": "La etiqueta muestra precio regular y de oferta; requiere revisión."
+  },
+  {
+    "capture_id": "CAP-800051",
+    "decision": "aprobada",
+    "confidence_score": 0.946,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 17.6,
+    "codigo_barras_detectado": null,
+    "explicacion": "Producto, etiqueta y precio coinciden con lo esperado."
+  },
+  {
+    "capture_id": "CAP-800052",
+    "decision": "aprobada",
+    "confidence_score": 0.933,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 25.2,
+    "codigo_barras_detectado": null,
+    "explicacion": "Producto, etiqueta y precio coinciden con lo esperado."
+  },
+  {
+    "capture_id": "CAP-800053",
+    "decision": "rechazada",
+    "confidence_score": 0.762,
+    "reason_code": "CAPTURA_LEJANA",
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "falla",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 18.8,
+    "codigo_barras_detectado": null,
+    "explicacion": "El producto aparece entre muchos en el anaquel; no se puede ligar a la etiqueta."
+  },
+  {
+    "capture_id": "CAP-800054",
+    "decision": "aprobada",
+    "confidence_score": 0.946,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 37.6,
+    "codigo_barras_detectado": null,
+    "explicacion": "Producto, etiqueta y precio coinciden con lo esperado."
+  },
+  {
+    "capture_id": "CAP-800055",
+    "decision": "revision_manual",
+    "confidence_score": 0.644,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "falla"
+    },
+    "precio_detectado": 46.5,
+    "codigo_barras_detectado": null,
+    "explicacion": "El precio de la etiqueta difiere del capturado."
+  },
+  {
+    "capture_id": "CAP-800056",
+    "decision": "aprobada",
+    "confidence_score": 0.961,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 44.1,
+    "codigo_barras_detectado": null,
+    "explicacion": "Producto, etiqueta y precio coinciden con lo esperado."
+  },
+  {
+    "capture_id": "CAP-800057",
+    "decision": "rechazada",
+    "confidence_score": 0.932,
+    "reason_code": "IMAGEN_BORROSA",
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "falla"
+    },
+    "precio_detectado": null,
+    "codigo_barras_detectado": null,
+    "explicacion": "La etiqueta está desenfocada y el precio no es legible."
+  },
+  {
+    "capture_id": "CAP-800058",
+    "decision": "revision_manual",
+    "confidence_score": 0.551,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 18.6,
+    "codigo_barras_detectado": null,
+    "explicacion": "La evidencia se ve bien pero la confianza no alcanza para aprobar."
+  },
+  {
+    "capture_id": "CAP-800059",
+    "decision": "aprobada",
+    "confidence_score": 0.913,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 29.9,
+    "codigo_barras_detectado": null,
+    "explicacion": "Producto, etiqueta y precio coinciden con lo esperado."
+  },
+  {
+    "capture_id": "CAP-800060",
+    "decision": "revision_manual",
+    "confidence_score": 0.757,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "falla"
+    },
+    "precio_detectado": 41.6,
+    "codigo_barras_detectado": null,
+    "explicacion": "La etiqueta muestra precio regular y de oferta; requiere revisión."
+  },
+  {
+    "capture_id": "CAP-800061",
+    "decision": "rechazada",
+    "confidence_score": 0.931,
+    "reason_code": "SIN_ETIQUETA_PRECIO",
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "falla"
+    },
+    "precio_detectado": null,
+    "codigo_barras_detectado": null,
+    "explicacion": "La foto de etiqueta no muestra ninguna etiqueta de precio."
+  },
+  {
+    "capture_id": "CAP-800062",
+    "decision": "revision_manual",
+    "confidence_score": 0.657,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "falla",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 25.5,
+    "codigo_barras_detectado": null,
+    "explicacion": "No se puede confirmar la presentación del producto (g vs ml)."
+  },
+  {
+    "capture_id": "CAP-800063",
+    "decision": "aprobada",
+    "confidence_score": 0.958,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 17.4,
+    "codigo_barras_detectado": null,
+    "explicacion": "Producto, etiqueta y precio coinciden con lo esperado."
+  },
+  {
+    "capture_id": "CAP-800064",
+    "decision": "rechazada",
+    "confidence_score": 0.759,
+    "reason_code": "DESCRIPCION_INCOMPLETA",
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "falla",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 24.3,
+    "codigo_barras_detectado": null,
+    "explicacion": "La descripción de la etiqueta está incompleta y no permite confirmar el producto."
+  },
+  {
+    "capture_id": "CAP-800065",
+    "decision": "rechazada",
+    "confidence_score": 0.71,
+    "reason_code": "CAPTURA_LEJANA",
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "falla",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 64.1,
+    "codigo_barras_detectado": null,
+    "explicacion": "El producto aparece entre muchos en el anaquel; no se puede ligar a la etiqueta."
+  },
+  {
+    "capture_id": "CAP-800066",
+    "decision": "revision_manual",
+    "confidence_score": 0.876,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "falla"
+    },
+    "precio_detectado": 15.1,
+    "codigo_barras_detectado": null,
+    "explicacion": "El precio de la etiqueta difiere del capturado."
+  },
+  {
+    "capture_id": "CAP-800067",
+    "decision": "rechazada",
+    "confidence_score": 0.798,
+    "reason_code": "IMAGEN_BORROSA",
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "falla"
+    },
+    "precio_detectado": null,
+    "codigo_barras_detectado": null,
+    "explicacion": "La etiqueta está desenfocada y el precio no es legible."
+  },
+  {
+    "capture_id": "CAP-800068",
+    "decision": "revision_manual",
+    "confidence_score": 0.536,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "falla",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 63.3,
+    "codigo_barras_detectado": null,
+    "explicacion": "No se puede confirmar la presentación del producto (g vs ml)."
+  },
+  {
+    "capture_id": "CAP-800069",
+    "decision": "rechazada",
+    "confidence_score": 0.891,
+    "reason_code": "IMAGEN_BORROSA",
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "falla"
+    },
+    "precio_detectado": null,
+    "codigo_barras_detectado": null,
+    "explicacion": "La etiqueta está desenfocada y el precio no es legible."
+  },
+  {
+    "capture_id": "CAP-800070",
+    "decision": "revision_manual",
+    "confidence_score": 0.594,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 30.0,
+    "codigo_barras_detectado": null,
+    "explicacion": "La evidencia se ve bien pero la confianza no alcanza para aprobar."
+  },
+  {
+    "capture_id": "CAP-800071",
+    "decision": "aprobada",
+    "confidence_score": 0.981,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 43.6,
+    "codigo_barras_detectado": null,
+    "explicacion": "Producto, etiqueta y precio coinciden con lo esperado."
+  },
+  {
+    "capture_id": "CAP-800072",
+    "decision": "revision_manual",
+    "confidence_score": 0.508,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "falla"
+    },
+    "precio_detectado": 37.0,
+    "codigo_barras_detectado": null,
+    "explicacion": "El precio de la etiqueta difiere del capturado."
+  },
+  {
+    "capture_id": "CAP-800073",
+    "decision": "revision_manual",
+    "confidence_score": 0.627,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "falla",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 12.3,
+    "codigo_barras_detectado": null,
+    "explicacion": "No se puede confirmar la presentación del producto (g vs ml)."
+  },
+  {
+    "capture_id": "CAP-800074",
+    "decision": "rechazada",
+    "confidence_score": 0.856,
+    "reason_code": "IMAGEN_BORROSA",
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "falla"
+    },
+    "precio_detectado": null,
+    "codigo_barras_detectado": null,
+    "explicacion": "La etiqueta está desenfocada y el precio no es legible."
+  },
+  {
+    "capture_id": "CAP-800075",
+    "decision": "revision_manual",
+    "confidence_score": 0.675,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "falla",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 12.2,
+    "codigo_barras_detectado": null,
+    "explicacion": "No se puede confirmar la presentación del producto (g vs ml)."
+  },
+  {
+    "capture_id": "CAP-800076",
+    "decision": "revision_manual",
+    "confidence_score": 0.698,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 10.4,
+    "codigo_barras_detectado": null,
+    "explicacion": "La evidencia se ve bien pero la confianza no alcanza para aprobar."
+  },
+  {
+    "capture_id": "CAP-800077",
+    "decision": "rechazada",
+    "confidence_score": 0.723,
+    "reason_code": "CAPTURA_LEJANA",
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "falla",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 41.6,
+    "codigo_barras_detectado": null,
+    "explicacion": "El producto aparece entre muchos en el anaquel; no se puede ligar a la etiqueta."
+  },
+  {
+    "capture_id": "CAP-800078",
+    "decision": "aprobada",
+    "confidence_score": 0.93,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 17.7,
+    "codigo_barras_detectado": null,
+    "explicacion": "Producto, etiqueta y precio coinciden con lo esperado."
+  },
+  {
+    "capture_id": "CAP-800079",
+    "decision": "rechazada",
+    "confidence_score": 0.805,
+    "reason_code": "IMAGEN_BORROSA",
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "falla"
+    },
+    "precio_detectado": null,
+    "codigo_barras_detectado": null,
+    "explicacion": "La etiqueta está desenfocada y el precio no es legible."
+  },
+  {
+    "capture_id": "CAP-800080",
+    "decision": "revision_manual",
+    "confidence_score": 0.635,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "falla"
+    },
+    "precio_detectado": 16.5,
+    "codigo_barras_detectado": null,
+    "explicacion": "El precio de la etiqueta difiere del capturado."
+  },
+  {
+    "capture_id": "CAP-800081",
+    "decision": "rechazada",
+    "confidence_score": 0.737,
+    "reason_code": "CAPTURA_LEJANA",
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "falla",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 60.4,
+    "codigo_barras_detectado": null,
+    "explicacion": "El producto aparece entre muchos en el anaquel; no se puede ligar a la etiqueta."
+  },
+  {
+    "capture_id": "CAP-800082",
+    "decision": "revision_manual",
+    "confidence_score": 0.699,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "falla",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 11.5,
+    "codigo_barras_detectado": null,
+    "explicacion": "No se puede confirmar la presentación del producto (g vs ml)."
+  },
+  {
+    "capture_id": "CAP-800083",
+    "decision": "revision_manual",
+    "confidence_score": 0.603,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 29.4,
+    "codigo_barras_detectado": null,
+    "explicacion": "La evidencia se ve bien pero la confianza no alcanza para aprobar."
+  },
+  {
+    "capture_id": "CAP-800084",
+    "decision": "aprobada",
+    "confidence_score": 0.926,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 44.3,
+    "codigo_barras_detectado": null,
+    "explicacion": "Producto, etiqueta y precio coinciden con lo esperado."
+  },
+  {
+    "capture_id": "CAP-800085",
+    "decision": "aprobada",
+    "confidence_score": 0.941,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 16.5,
+    "codigo_barras_detectado": null,
+    "explicacion": "Producto, etiqueta y precio coinciden con lo esperado."
+  },
+  {
+    "capture_id": "CAP-800086",
+    "decision": "revision_manual",
+    "confidence_score": 0.577,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 30.8,
+    "codigo_barras_detectado": null,
+    "explicacion": "La evidencia se ve bien pero la confianza no alcanza para aprobar."
+  },
+  {
+    "capture_id": "CAP-800087",
+    "decision": "rechazada",
+    "confidence_score": 0.707,
+    "reason_code": "CAPTURA_LEJANA",
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "falla",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 30.8,
+    "codigo_barras_detectado": null,
+    "explicacion": "El producto aparece entre muchos en el anaquel; no se puede ligar a la etiqueta."
+  },
+  {
+    "capture_id": "CAP-800088",
+    "decision": "revision_manual",
+    "confidence_score": 0.524,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "falla"
+    },
+    "precio_detectado": 65.9,
+    "codigo_barras_detectado": null,
+    "explicacion": "El precio de la etiqueta difiere del capturado."
+  },
+  {
+    "capture_id": "CAP-800089",
+    "decision": "revision_manual",
+    "confidence_score": 0.523,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 28.9,
+    "codigo_barras_detectado": null,
+    "explicacion": "La evidencia se ve bien pero la confianza no alcanza para aprobar."
+  },
+  {
+    "capture_id": "CAP-800090",
+    "decision": "revision_manual",
+    "confidence_score": 0.524,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "falla",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 33.8,
+    "codigo_barras_detectado": null,
+    "explicacion": "No se puede confirmar la presentación del producto (g vs ml)."
+  },
+  {
+    "capture_id": "CAP-800091",
+    "decision": "aprobada",
+    "confidence_score": 0.91,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 11.6,
+    "codigo_barras_detectado": null,
+    "explicacion": "Producto, etiqueta y precio coinciden con lo esperado."
+  },
+  {
+    "capture_id": "CAP-800092",
+    "decision": "revision_manual",
+    "confidence_score": 0.849,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "falla"
+    },
+    "precio_detectado": 51.7,
+    "codigo_barras_detectado": null,
+    "explicacion": "El precio de la etiqueta difiere del capturado."
+  },
+  {
+    "capture_id": "CAP-800093",
+    "decision": "revision_manual",
+    "confidence_score": 0.662,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "falla"
+    },
+    "precio_detectado": 26.5,
+    "codigo_barras_detectado": null,
+    "explicacion": "La etiqueta muestra precio regular y de oferta; requiere revisión."
+  },
+  {
+    "capture_id": "CAP-800094",
+    "decision": "rechazada",
+    "confidence_score": 0.791,
+    "reason_code": "IMAGEN_BORROSA",
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "falla"
+    },
+    "precio_detectado": null,
+    "codigo_barras_detectado": null,
+    "explicacion": "La etiqueta está desenfocada y el precio no es legible."
+  },
+  {
+    "capture_id": "CAP-800095",
+    "decision": "rechazada",
+    "confidence_score": 0.887,
+    "reason_code": "IMAGEN_BORROSA",
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "falla"
+    },
+    "precio_detectado": null,
+    "codigo_barras_detectado": null,
+    "explicacion": "La etiqueta está desenfocada y el precio no es legible."
+  },
+  {
+    "capture_id": "CAP-800096",
+    "decision": "rechazada",
+    "confidence_score": 0.779,
+    "reason_code": "CAPTURA_LEJANA",
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "falla",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 28.2,
+    "codigo_barras_detectado": null,
+    "explicacion": "El producto aparece entre muchos en el anaquel; no se puede ligar a la etiqueta."
+  },
+  {
+    "capture_id": "CAP-800097",
+    "decision": "aprobada",
+    "confidence_score": 0.914,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "ok"
+    },
+    "precio_detectado": 42.8,
+    "codigo_barras_detectado": null,
+    "explicacion": "Producto, etiqueta y precio coinciden con lo esperado."
+  },
+  {
+    "capture_id": "CAP-800098",
+    "decision": "revision_manual",
+    "confidence_score": 0.845,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "falla"
+    },
+    "precio_detectado": 43.1,
+    "codigo_barras_detectado": null,
+    "explicacion": "El precio de la etiqueta difiere del capturado."
+  },
+  {
+    "capture_id": "CAP-800099",
+    "decision": "revision_manual",
+    "confidence_score": 0.759,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "ok",
+      "producto": "ok",
+      "codigo_barras": "ok",
+      "evidencia_precio": "falla"
+    },
+    "precio_detectado": 23.8,
+    "codigo_barras_detectado": null,
+    "explicacion": "El precio de la etiqueta difiere del capturado."
+  },
+  {
+    "capture_id": "CAP-800100",
+    "decision": "revision_manual",
+    "confidence_score": 0.0,
+    "reason_code": null,
+    "validaciones": {
+      "tienda_fachada": "falla",
+      "producto": "falla",
+      "codigo_barras": "falla",
+      "evidencia_precio": "falla"
+    },
+    "precio_detectado": null,
+    "codigo_barras_detectado": null,
+    "explicacion": "No se obtuvo análisis automático; se envía a revisión manual."
+  }
+]
