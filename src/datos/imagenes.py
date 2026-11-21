@@ -22,7 +22,11 @@ from typing import Any
 import cv2
 import numpy as np
 
-from src.contratos import TIPOS_IMAGEN
+from typing import get_args
+
+from contratos import TipoFoto
+
+TIPOS_IMAGEN: tuple[str, ...] = get_args(TipoFoto)  # ("facade", "product", "shelf"), definido en contratos/
 
 try:  # lector de códigos opcional: sin él, los códigos quedan como "no_leido"
     import zxingcpp
@@ -44,7 +48,7 @@ FORMATOS_PRODUCTO = {"EAN13", "EAN8", "UPCA", "UPCE"}
 ESTADO_OK, ESTADO_FALTANTE, ESTADO_CORRUPTA = "ok", "faltante", "corrupta"
 
 PARAMETROS_DEFECTO: dict[str, Any] = {
-    "lado_max": {"facade": 512, "product": 960, "shelf": 768},
+    "lado_max": {"facade": 512, "product": 960, "shelf": 960},
     "clahe": {"facade": 2.0, "product": 2.0, "shelf": 3.0},
     "calidad_jpeg": 85,
     "leer_codigos": True,

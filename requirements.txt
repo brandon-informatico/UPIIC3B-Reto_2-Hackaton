@@ -1,8 +1,8 @@
 # Dependencias Python del proyecto. Agrega aquí las de tu módulo en el mismo PR.
 anthropic
+pydantic>=2
 pyyaml
 python-dotenv
 numpy
 opencv-python-headless
 zxing-cpp
-rapidocr_onnxruntime

@@ -1,1 +1,1 @@
-"""IA con Azure AI Foundry. Responsable: Brandon (rama feat/ia-foundry)."""
+"""E4 · analizar_captura(captura, features) -> (HallazgosIA | None, UsoIA | None). Responsable: Brandon."""

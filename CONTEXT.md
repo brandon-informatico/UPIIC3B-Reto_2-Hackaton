@@ -2,10 +2,12 @@
 
 > **Para cualquier asistente de IA (Claude, ChatGPT, Copilot, Cursor, Gemini, etc.) y para cada integrante:**
 > lee este archivo completo antes de escribir código y síguelo siempre. Si una instrucción del usuario
-> contradice este archivo, avisa del conflicto antes de actuar. Si algo no está definido aquí, **no lo inventes**:
-> pregunta o márcalo con `# PENDIENTE:`.
+> contradice este archivo o `contratos/`, avisa del conflicto antes de actuar. Si algo no está definido,
+> **no lo inventes**: pregunta o márcalo con `# PENDIENTE:`.
 
-Versión del contrato: **v0** (21-nov-2026). Cualquier cambio a este archivo se acuerda en el chat del equipo y entra por PR.
+**Fuente de verdad de datos:** [`contratos/contratos.py`](contratos/contratos.py) (pydantic v2). Define exactamente
+qué recibe y entrega cada etapa. Si este archivo y `contratos.py` difieren, **manda `contratos.py`**.
+Cualquier cambio a un contrato se acuerda en el chat del equipo y entra por PR junto con sus ejemplos.
 
 ---
 
@@ -35,217 +37,173 @@ Tres frentes que se integran en **una sola** decisión:
 
 - Mínimos: **precisión de aprobadas ≥ 97 %** y **JSON válido en ≥ 99 %** de las capturas.
 - Pesos: costo operativo 50 %, calidad del dato 15 % (`reason_code` y precio detectado, incluso promociones), eficiencia 10 % (tokens por captura), pitch 25 %.
-- **Regla de oro del motor:** ante la duda, `revision_manual`. Nunca `aprobada` sin evidencia clara.
+- **Regla de oro:** ante la duda, `revision_manual`. Nunca `aprobada` sin evidencia clara.
 
 ---
 
-## 2. Roles, carpetas y ramas
-
-| Integrante | Área | Solo edita | Rama |
-|---|---|---|---|
-| Pat | Motor e integración | `src/motor/`, `src/pipeline.py`, `src/contratos.py` | `feat/motor` |
-| Brandon | IA y Azure AI Foundry | `src/ia/` | `feat/ia-foundry` |
-| Armando | Dashboard y sitio | `dashboard/`, `web/` | `feat/dashboard` |
-| Copka | Carga y limpieza | `src/datos/` | `feat/datos` |
-| Ale | Evaluación y métricas | `evaluacion/` | `feat/evaluacion` |
-
-- La IA **no modifica carpetas de otro integrante**. Si hace falta, propone el cambio y lo avisa.
-- Flujo: `feat/*` → PR → `develop` (integra Pat) → PR → `main` (versión de la demo).
-- Commits pequeños, en español, con el área como prefijo: `datos: carga capturas.json`, `ia: prompt de etiqueta`, `motor: regla de precio`.
-
----
-
-## 3. Datos (nunca se suben)
-
-Se descargan con `python scripts/descargar_datos.py` y quedan así:
+## 2. Etapas y contratos
 
 ```
-data/capturas.json          100 capturas de desarrollo con decision_esperada
-data/capturas.csv           lo mismo en CSV
-data/catalogo_productos.csv catálogo de referencia
+E1 carga ─────────► CapturaPreparada
+separar_fotos.py ─► IndiceFotos
+E2 normalizar.py ─► FeaturesCaptura           visión local, SIN tokens
+E3 decisión local ► DecisionInterna           (ruta_decision="local") si ya no hace falta IA
+E4 IA ────────────► HallazgosIA + UsoIA       (o None si la IA falla)
+E5 decisión ──────► DecisionInterna           (ruta_decision="ia" | "error")
+E6 salida ────────► RegistroSalida            formato oficial, vía a_oficial() / respaldo_revision()
+E8 evaluación · E9 dashboard
+```
+
+| Contrato | Produce | Consume | Archivo |
+|---|---|---|---|
+| `CapturaPreparada` | Copa · E1 | Copa E2, Brandon E4, Pat E5 | en memoria / `cache/capturas_preparadas.json` |
+| `IndiceFotos` | Copa · `separar_fotos.py` | `normalizar.py` | `cache/indice_fotos.json` |
+| `FeaturesCaptura` | Copa · E2 `normalizar.py` | Pat E3/E5, Brandon E4 | `cache/features.json` |
+| `HallazgosIA` + `UsoIA` | Brandon · E4 | Pat E5, Ale E8 | `cache/ia/<capture_id>.json` |
+| `DecisionInterna` | Pat · E3/E5 | Pat E6, Ale E8 | `logs/corrida_<id>.jsonl` |
+| `RegistroSalida` | Pat · E6 | entrega, Ale E8, Armando E9 | `resultados/resultados.json` |
+
+**Ejemplos:** `contratos/ejemplos/01..17_*.json` traen la cadena completa E1 → E2 → E4 → E5 → E6 de cada situación
+(aprobada, cada rechazo y cada motivo de revisión). Son las **pruebas unitarias** de todos: mientras un módulo real no
+exista, quien lo consume trabaja con estos ejemplos. Así nadie espera a nadie y nadie necesita la llave para avanzar.
+
+```bash
+python contratos/validar.py ejemplos
+python contratos/validar.py features cache/features.json --capturas data/capturas.json
+python contratos/validar.py salida resultados/resultados.json --capturas data/capturas.json
+```
+
+### Funciones que se exponen
+
+```python
+from contratos import CapturaPreparada, FeaturesCaptura, HallazgosIA, UsoIA, DecisionInterna, RegistroSalida
+
+# Copa · src/datos/
+cargar_capturas(ruta_capturas: Path) -> list[CapturaPreparada]
+normalizar(capturas: list[CapturaPreparada]) -> list[FeaturesCaptura]     # una por capture_id, aunque no haya fotos
+
+# Brandon · src/ia/
+analizar_captura(captura: CapturaPreparada, features: FeaturesCaptura) -> tuple[HallazgosIA | None, UsoIA | None]
+
+# Pat · src/motor/
+decidir(features: FeaturesCaptura, hallazgos: HallazgosIA | None) -> DecisionInterna
+#   PENDIENTE: agregar `captura` si hace falta comparar contra capture_price (acordar Pat + Copa).
+a_oficial(decision: DecisionInterna, explicacion: str) -> RegistroSalida       # ya existe en contratos.py
+respaldo_revision(capture_id, motivo, explicacion) -> RegistroSalida           # ya existe en contratos.py
+```
+
+Ejecución completa: `python -m src.pipeline` → `resultados/resultados.json`.
+
+---
+
+## 3. Reglas que los contratos hacen cumplir
+
+- Una **aprobada** no tiene fallas y **siempre** pasó por IA (`ruta_decision = "ia"`). En local nunca se aprueba.
+- Una **rechazada** tiene `reason_code` y es el de **mayor prioridad**: identidad (A) → calidad (B) → precio (C).
+- Una **revisión manual** siempre dice por qué en `motivo_revision`.
+- `features.json` tiene **una entrada por cada `capture_id`**, aunque no tenga fotos (`estado = "sin_fotos"`).
+- Tres estados en códigos: `no_leido` ≠ `no_coincide`. `codigo_etiqueta = "distinto"` **no es falla** (Walmart/Bodega imprimen otro código).
+- `brillo` y `nitidez` cruda **solo van a logs**. El motor usa `nitidez_norm` y `nitidez_zona_max` (no dependen de la luz).
+- La IA distingue **"no"** de **"no_determinable"**, y no inventa contratipos (`sin_informacion`).
+- Si la IA falla (refusal, `max_tokens`, reintentos agotados) → `revision_manual` con `motivo_revision = "ia_error"`.
+- Si algo truena en cualquier etapa → `respaldo_revision(...)`: el registro siempre es válido.
+- Todo `RegistroSalida` se valida con pydantic antes de escribirse.
+
+### Valores (definidos en `contratos.py`; no repetir strings sueltos)
+
+| Concepto | Valores |
+|---|---|
+| Fotos | `facade`, `product`, `shelf` |
+| Validaciones internas | `ok`, `falla`, `no_determinable` |
+| Validaciones oficiales (salida) | `ok`, `falla` (`PENDIENTE_COMITE`) |
+| Respuestas de la IA | `si`, `no`, `no_determinable` (y variantes por campo: `parcial`, `sin_informacion`, `no_enviada`) |
+| Tipo de precio | `regular`, `oferta`, `volumen` |
+| `reason_code` | `REASON_CODES_PROVISIONALES` (solo `PRODUCTO_NO_COINCIDE` es oficial) |
+| `motivo_revision` | `duda_identidad`, `duda_calidad`, `duda_precio`, `dos_precios`, `precio_distinto_al_capturado`, `contratipo_sin_informacion`, `confianza_insuficiente`, `imagen_faltante`, `imagen_corrupta`, `sin_fotos`, `ia_error`, `salida_invalida` |
+
+**Pendientes del comité** (se cambian en **un solo lugar** de `contratos.py`): `VALORES_VALIDACION_OFICIAL`,
+`REASON_CODES_PROVISIONALES`, si `reason_code` puede ser `null` en aprobada/revisión, significado de
+`confidence_score` y dónde va el tipo de precio en la salida oficial. Cuando lleguen, mandan los documentos oficiales.
+
+---
+
+## 4. Roles, carpetas y ramas
+
+| Integrante | Etapas | Solo edita | Rama |
+|---|---|---|---|
+| Copa (Copka) | E1, E2 | `src/datos/` | `feat/datos` |
+| Brandon | E4 | `src/ia/` | `feat/ia-foundry` |
+| Pat | E3, E5, E6 | `src/motor/`, `src/pipeline.py` | `feat/motor` |
+| Ale | E8 | `evaluacion/` | `feat/evaluacion` |
+| Armando | E9 | `dashboard/`, `web/` | `feat/dashboard` |
+| Todo el equipo | contratos | `contratos/` (solo por PR acordado) | — |
+
+- La IA **no modifica carpetas de otro integrante** ni `contratos/` por su cuenta: propone el cambio y lo avisa.
+- Flujo: `feat/*` → PR → `develop` (integra Pat) → PR → `main` (versión de la demo).
+- Commits pequeños, en español, con el área como prefijo: `datos: carga capturas.json`, `ia: prompt de etiqueta`.
+
+---
+
+## 5. Datos (nunca se suben)
+
+Se descargan con `python scripts/descargar_datos.py`:
+
+```
+data/capturas.json            100 capturas de desarrollo (con decision_esperada)
+data/catalogo_productos.csv   catálogo de referencia
 data/imagenes/CAP-XXXXXX_{facade,product,shelf}.jpg
 ```
 
-**Prohibido:** subir `data/`, `resultados/`, `cache/`, `.env` o imágenes al repo; pegar imágenes o contenido real de
-`capturas.json` en asistentes de IA externos (las reglas del reto prohíben compartir los datos fuera del equipo).
-Para pedir ayuda a una IA usa los ejemplos **ficticios** de `ejemplos/`.
-
-### Campos oficiales de una captura (usar el nombre EXACTO, no traducir)
-
-`capture_id`, `capture_store_name`, `capture_date`, `capture_barcode`, `capture_price`, `capture_brand`,
-`id_product`, `product_name`, `product_barcode`, `product_price`, `min_product_price`, `max_product_price`,
-`unit_product`, `unit_quantity_product`, `product_group`, `product_line`,
-`facade_file`, `product_file`, `shelf_file`, `facade_url`, `product_url`, `shelf_url`,
-`decision_esperada`, `motivo_rechazo` (estos dos **solo** existen en desarrollo; el motor no debe leerlos).
-
-- Códigos de barras: se manejan siempre como **texto** (`str`), nunca `int` (se pierden ceros a la izquierda).
-- Precios: `float` en pesos MXN, 2 decimales al comparar.
-- Tipos de imagen: siempre las llaves `"facade"`, `"product"`, `"shelf"` (como vienen en los datos).
+- **Nunca** pasar `decision_esperada` ni `motivo_rechazo` a la IA ni al motor: solo sirven para evaluar (E8).
+  `CapturaPreparada` ya no los incluye.
+- Prohibido subir `data/`, `cache/`, `logs/`, `resultados/`, `.env` o imágenes; prohibido pegar imágenes o el
+  contenido de `data/` en asistentes de IA externos (las reglas del reto prohíben compartir los datos fuera del equipo).
+  Para pedir ayuda a una IA usa `contratos/ejemplos/`.
+- Campos oficiales: se usan con su nombre **exacto** (`capture_id`, `capture_price`, `product_barcode`, …).
+- Códigos de barras siempre como **texto** (`str`), nunca `int`. Precios `float` en MXN.
 
 ---
 
-## 4. Contratos entre módulos
+## 6. IA de la solución (Azure AI Foundry) — E4
 
-Las constantes compartidas viven **solo** en `src/contratos.py`. Importa de ahí; no repitas strings sueltos.
-
-### Copka → `src/datos/`
-```python
-cargar_capturas(ruta: Path) -> list[dict]              # capturas limpias, campos oficiales
-cargar_catalogo(ruta: Path) -> dict[int, dict]         # id_product -> fila del catálogo
-rutas_imagenes(captura: dict, base: Path) -> dict[str, Path | None]  # {"facade":..., "product":..., "shelf":...}
-preparar_captura(captura, base_imagenes, ruta_cache, catalogo=None, ...) -> dict   # una captura (ver abajo)
-ingerir(ruta_capturas, base_imagenes, ruta_cache, ruta_catalogo=None) -> list[dict]  # todas
-```
-- `cargar_capturas` quita `decision_esperada` y `motivo_rechazo` (solo `incluir_etiquetas=True`, para evaluación),
-  agrega `banderas_datos: list[str]` y deja un solo registro por `capture_id`.
-- `python -m src.datos` escribe **`cache/ingesta.json`**: lista con un objeto por captura (aunque no tenga fotos),
-  en el orden de `capturas.json`. Llaves que usan IA y motor (detalle en `src/datos/ingesta.py`):
-
-| Llave | Qué es |
-|---|---|
-| `capture_id`, `captura`, `producto_catalogo` | Captura limpia (sin etiquetas) y su fila del catálogo |
-| `imagenes` / `imagenes_normalizadas` | Rutas originales / copias reducidas con luz emparejada |
-| `imagenes_para_ia`, `tokens_imagen_ia_aprox` | **Lo que se manda al modelo** (mismo formato que `imagenes`) y sus tokens de imagen estimados |
-| `estado_imagenes` | `{"facade","product","shelf"}` → `"ok"` \| `"faltante"` \| `"corrupta"` |
-| `lista_para_ia` | `true` si producto y etiqueta están `ok`; si es `false`, `revision_manual` sin gastar tokens |
-| `senales` | Señales locales: `nitidez_norm`, `nitidez_zona_max` (no dependen de la luz), `codigo_empaque` (`coincide`/`no_coincide`/`no_leido`), `codigo_etiqueta` (`coincide`/`distinto`/`no_leido`), `codigo_barras_detectado`, `tokens_imagen_aprox`. `brillo` y `nitidez` crudos solo para logs (sesgo día/noche). |
-| `ocr.etiqueta` | Pistas del OCR local: `precio_etiqueta`, `precio_coincide_captura`, `tipo_precio` (`regular`/`promocion`), `precio_unitario_visible` (`true`/`null`, nunca `false`), `descripcion_similitud` (0–1), `contenido_coincide` (`si`/`no`/`no_determinable`) |
-| `fuente_etiqueta_ia` | `completa` (por defecto, etiqueta a 768 px) \| `recorte` (solo si `datos.recorte_para_ia: true` y el recorte se verificó con OCR) \| `no_disponible` |
-| `errores` | Lista de problemas de la captura |
-
-- Las pistas locales **confirman**, no condenan: `precio_coincide_captura = false` o `codigo_* = no_leido` no son
-  evidencia de falla (errores de lectura); solo `true` / `coincide` suman confianza.
-
-### Brandon → `src/ia/`
-```python
-analizar_captura(captura: dict, imagenes: dict[str, Path | None]) -> dict   # devuelve "hallazgos"
-```
-`hallazgos` (todas las llaves siempre presentes; `None` = no se pudo determinar):
-```python
-{
-  "tienda_detectada": str | None,
-  "tienda_coincide": bool | None,
-  "producto_coincide": bool | None,
-  "es_contratipo": bool | None,
-  "contratipo_valido": bool | None,
-  "descripcion_completa": bool | None,
-  "producto_visible": bool | None,
-  "etiqueta_visible": bool | None,
-  "precio_unitario_visible": bool | None,
-  "precio_detectado": float | None,
-  "tipo_precio": "regular" | "promocion" | None,
-  "codigo_barras_detectado": str | None,
-  "calidad": {"facade": CALIDAD, "product": CALIDAD, "shelf": CALIDAD},  # CALIDAD en contratos.py
-  "tokens_entrada": int,
-  "tokens_salida": int,
-  "notas": str,
-}
-```
-
-### Pat → `src/motor/` y `src/pipeline.py`
-```python
-decidir(captura: dict, hallazgos: dict) -> dict          # devuelve un "resultado" (formato oficial)
-guardar_resultados(resultados: list[dict], ruta: Path) -> None
-```
-Ejecución: `python -m src.pipeline` → escribe `resultados/resultados.json`.
-
-### Ale → `evaluacion/`
-`python -m evaluacion.evaluar` compara `resultados/resultados.json` contra `decision_esperada` y reporta:
-precisión de aprobadas, costo operativo (tabla de la sección 1), % JSON válido, tokens por captura.
-
-### Armando → `dashboard/` y `web/`
-Lee **solo** `resultados/resultados.json` y los reportes de `evaluacion/`. `web/` se publica sola en
-https://upiic3b.pages.dev (solo archivos estáticos).
-
----
-
-## 5. Salida oficial (un objeto por captura)
-
-```json
-{
-  "capture_id": "CAP-000123",
-  "decision": "aprobada",
-  "confidence_score": 0.93,
-  "reason_code": null,
-  "validaciones": {
-    "tienda_fachada": "ok",
-    "producto": "ok",
-    "codigo_barras": "ok",
-    "evidencia_precio": "ok"
-  },
-  "precio_detectado": 42.5,
-  "codigo_barras_detectado": "7501234567890",
-  "explicacion": "Fachada, producto y etiqueta coinciden; precio dentro del rango."
-}
-```
-
-- `capture_id`: el mismo de la entrada. `decision`: solo los 3 valores de la sección 1.
-- `confidence_score`: `float` entre 0 y 1.
-- `validaciones.*`: `"ok"` | `"falla"` | `"duda"`.
-- `reason_code`: `null` si es `aprobada`; si no, un código de la tabla siguiente.
-- `explicacion`: una o dos frases en español, sin datos personales.
-- El archivo final es una **lista JSON** con un objeto por captura. Siempre valida contra `src/contratos.py` antes de escribir.
-
-### `reason_code` (provisionales, `MAYUSCULAS_CON_GUION_BAJO`)
-
-| Código | Frente | Significado |
-|---|---|---|
-| `PRODUCTO_NO_COINCIDE` | A | El producto no es el esperado (ejemplo oficial). |
-| `CONTRATIPO_INVALIDO` | A | Es un sustituto no permitido. |
-| `DESCRIPCION_INCOMPLETA` | A | La descripción del producto está incompleta. |
-| `PRODUCTO_NO_VISIBLE` | A | No se ve el producto. |
-| `FACHADA_INCORRECTA` | B | La fachada no corresponde a la tienda. |
-| `CAPTURA_LEJANA` | B | Foto tomada demasiado lejos. |
-| `IMAGEN_BORROSA` | B | Foto borrosa o ilegible. |
-| `FOTO_DE_PANTALLA` | B | Foto de la pantalla de otro celular. |
-| `SIN_ETIQUETA_PRECIO` | C | No hay etiqueta de precio. |
-| `SIN_PRECIO_UNITARIO` | C | Falta el precio unitario. |
-
-`# PENDIENTE:` la página del reto dice que la lista oficial y el esquema formal llegan con los documentos del comité.
-Cuando lleguen, **solo** se actualizan esta tabla y `src/contratos.py`; mandan los documentos oficiales.
-
----
-
-## 6. IA de la solución (Azure AI Foundry)
-
-- Solo se usa el **endpoint asignado al equipo**. Prohibido llamar otras APIs de IA externas desde la solución.
-- Credenciales por variables de entorno (`.env`, nunca en el código ni en commits):
-  `FOUNDRY_API_KEY`, `FOUNDRY_ENDPOINT`, `FOUNDRY_MODEL`.
-- SDK: `anthropic` → `AnthropicFoundry(api_key=..., base_url=FOUNDRY_ENDPOINT)`.
-- Ahorra tokens (cuentan en la calificación y en desempates): imágenes reducidas, prompts cortos, respuesta en JSON,
-  **caché** en `cache/` por `capture_id` + tipo de imagen, sin reintentos infinitos.
+- Solo el **endpoint asignado al equipo**. Prohibido llamar otras APIs de IA externas desde la solución.
+- Credenciales en `.env` (nunca en código ni commits): `FOUNDRY_API_KEY`, `FOUNDRY_ENDPOINT`, `FOUNDRY_MODEL`.
+- SDK `anthropic` → `AnthropicFoundry(api_key=..., base_url=FOUNDRY_ENDPOINT)`, modelo `claude-haiku-5-5`.
+- Salida estructurada con el schema `HallazgosIA.model_json_schema()`; uso registrado en `UsoIA` (incluye `version_prompt`).
+- Ahorra tokens (cuentan en la calificación y en desempates): usa las fotos de `ruta_normalizada` (E2), prompts cortos,
+  caché en `cache/ia/<capture_id>.json`, no llames a la IA si E3 ya decidió, reintentos acotados.
 - Juego limpio: las decisiones del set ciego salen del programa, nunca de revisión humana.
 
 ---
 
 ## 7. Estilo de código
 
-- **Python 3.11+**, PEP 8, 4 espacios, `type hints` en funciones públicas, `pathlib.Path` para rutas, `f-strings`.
-- Identificadores **en español, sin acentos ni ñ**: `precio_detectado`, `cargar_capturas`, `anio`.
-  Excepción: los campos oficiales de datos/salida se usan tal cual vienen (`capture_id`, `facade_file`).
-- `snake_case` para variables, funciones y archivos; `PascalCase` para clases; `MAYUSCULAS` para constantes.
-- Nombres canónicos (úsalos igual en todo el proyecto):
+- **Python 3.11+**, PEP 8, 4 espacios, `type hints`, `pathlib.Path`, `f-strings`, `logging` (no `print`).
+- Identificadores **en español, sin acentos ni ñ** (`precio_detectado`, `anio`). Los campos oficiales se usan tal cual.
+- `snake_case` variables/funciones/archivos · `PascalCase` clases · `MAYUSCULAS` constantes.
+- Nombres canónicos (iguales en todo el proyecto):
 
-| Nombre | Qué es |
+| Nombre | Tipo |
 |---|---|
-| `captura` / `capturas` | Un dict de entrada / la lista completa |
-| `catalogo` | `dict[int, dict]` por `id_product` |
-| `imagenes` | `dict[str, Path \| None]` con llaves `facade`, `product`, `shelf` |
-| `hallazgos` | Salida de `analizar_captura` |
-| `resultado` / `resultados` | Objeto oficial de salida / la lista |
-| `ruta_*` | Cualquier `Path` (`ruta_capturas`, `ruta_salida`) |
+| `captura` / `capturas` | `CapturaPreparada` / lista |
+| `features` | `FeaturesCaptura` |
+| `hallazgos` | `HallazgosIA \| None` |
+| `uso_ia` | `UsoIA` |
+| `decision` | `DecisionInterna` |
+| `registro` / `registros` | `RegistroSalida` / lista final |
+| `ruta_*` | cualquier `Path` (`ruta_capturas`, `ruta_salida`) |
 
-- Comentarios y docstrings en español, cortos. Nada de código muerto ni `print` para depurar: usa `logging`.
 - Rutas y parámetros en `config.yaml`; nada de rutas absolutas (`/Users/...`, `C:\...`).
-- Dependencias nuevas: agrégalas a `requirements.txt` en el mismo PR.
-- Una función no debe fallar por una captura mala: atrapa el error, registra y devuelve `revision_manual`.
+- Dependencias nuevas a `requirements.txt` en el mismo PR.
+- Una captura mala nunca detiene la corrida: atrapa el error, regístralo y usa `respaldo_revision`.
 
 ---
 
 ## 8. Checklist antes de un PR
 
 - [ ] Solo toqué mi carpeta (o avisé).
-- [ ] Usé nombres y constantes de este archivo y de `src/contratos.py`.
-- [ ] No subo `.env`, llaves, `data/`, imágenes ni resultados reales.
+- [ ] Mis entradas y salidas son los modelos de `contratos.py` y `python contratos/validar.py ejemplos` pasa.
+- [ ] Probé mi módulo contra `contratos/ejemplos/`.
+- [ ] No subo `.env`, llaves, `data/`, `cache/`, `logs/`, imágenes ni resultados reales.
 - [ ] `python -m src.pipeline` sigue corriendo.
-- [ ] Si cambié un contrato, actualicé este archivo en el mismo PR y avisé al equipo.
+- [ ] Si cambié un contrato, actualicé `contratos.py`, sus ejemplos y este archivo en el mismo PR, y avisé.

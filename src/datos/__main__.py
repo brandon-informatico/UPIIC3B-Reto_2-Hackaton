@@ -33,7 +33,6 @@ def main() -> None:
     parser.add_argument("--cache", type=Path, default=RAIZ / rutas.get("cache", "cache/"))
     parser.add_argument("--salida", type=Path, default=RAIZ / datos.get("salida_ingesta", "cache/ingesta.json"))
     parser.add_argument("--hilos", type=int, default=datos.get("hilos", 4))
-    parser.add_argument("--sin-ocr", action="store_true", help="omite el OCR local (más rápido)")
     parser.add_argument("-v", "--verbose", action="store_true")
     args = parser.parse_args()
     logging.basicConfig(level=logging.DEBUG if args.verbose else logging.INFO,
@@ -41,9 +40,7 @@ def main() -> None:
 
     inicio = time.perf_counter()
     preparadas = ingerir(args.capturas, args.imagenes, args.cache, args.catalogo,
-                         parametros=datos.get("normalizacion"), hilos=args.hilos,
-                         usar_ocr=datos.get("ocr", True) and not args.sin_ocr,
-                         usar_recorte=datos.get("recorte_para_ia", True))
+                         parametros=datos.get("normalizacion"), hilos=args.hilos)
     guardar_ingesta(preparadas, args.salida)
     reporte = resumen(preparadas)
     reporte["segundos"] = round(time.perf_counter() - inicio, 1)
