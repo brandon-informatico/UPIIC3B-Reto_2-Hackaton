@@ -63,6 +63,12 @@ _FRASE_IRRELEVANTE = re.compile(
 # PENDIENTE: calibrar con datos etiquetados.
 P_VALIDA_RECHAZO = 0.1
 
+# CAPTURA_LEJANA solo con evidencia. La IA marca producto_aislado="no" tambien cuando el producto "no destaca"
+# entre otros del anaquel aunque se vea bien (en desarrollo, 4 de 12 rechazos CAPTURA_LEJANA eran capturas
+# aprobadas o de revision). Si la IA leyo todo lo que una foto lejana impediria leer, "lejana" se contradice:
+# no se rechaza, va a revision (duda_calidad). Nunca se aprueba con producto_aislado distinto de "si".
+_LEIDO_COMPLETO = ("producto_visible", "producto_coincide", "contenido_coincide",
+                   "descripcion_completa", "descripcion_coincide")
 
 
 def _dato(objeto: Any, campo: str, predeterminado: Any = None) -> Any:
@@ -80,6 +86,15 @@ def _precio(hallazgos: HallazgosIA | None) -> tuple[float | None, str | None, in
     tipo = _dato(precios[0], "tipo")
     # Los tipos vienen del contrato: regular, oferta o volumen.
     return (float(precio) if precio is not None else None, tipo, len(precios))
+
+
+def _lejana_contradicha(hallazgos: HallazgosIA) -> bool:
+    """True si la IA dice 'lejana' pero leyo marca, contenido y descripcion sin borrosidad."""
+    return (_dato(hallazgos, "producto_aislado") == "no"
+            and all(_dato(hallazgos, campo) == "si" for campo in _LEIDO_COMPLETO)
+            and _dato(hallazgos, "foto_borrosa") == "no"
+            and bool(_dato(hallazgos, "marca_detectada"))
+            and bool(_dato(hallazgos, "contenido_detectado")))
 
 
 def _codigo_leido(features: FeaturesCaptura) -> str | None:
@@ -189,7 +204,10 @@ def decidir(features: FeaturesCaptura, hallazgos: HallazgosIA | None) -> Decisio
         return revision("ia_error", "error")
 
     # Rechazos demostrables, primero identidad, despues calidad y precio.
+    lejana_contradicha = _lejana_contradicha(hallazgos)
     for campo, valor, codigo, frente in REGLAS_RECHAZO:
+        if codigo == "CAPTURA_LEJANA" and lejana_contradicha:
+            continue  # se resuelve abajo como duda_calidad, despues de las demas reglas de rechazo
         valores = valor if isinstance(valor, tuple) else (valor,)
         if _dato(hallazgos, campo) in valores:
             return DecisionInterna(**{**campos,
@@ -213,6 +231,8 @@ def decidir(features: FeaturesCaptura, hallazgos: HallazgosIA | None) -> Decisio
     # confianza_insuficiente (ejemplo 13).
     if precio is None or _dato(hallazgos, "etiqueta_legible") in ("no", "no_determinable"):
         return revision("duda_precio", "ia")
+    if lejana_contradicha:
+        return revision("duda_calidad", "ia")
 
     # Aprobacion conservadora: solo cuando los campos decisivos son explicitamente 'si'.
     # El ejemplo 01 admite es_contratipo_permitido='sin_informacion';
